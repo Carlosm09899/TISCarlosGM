@@ -1,64 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Motel - Módulos</title>
-  <link rel="stylesheet" href="styles/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Motel</title>
 </head>
 <body>
-  <header>📊 Sistema Motel - Módulos</header>
-  <main>
-    <div class="card">
-      <h2>1. Módulo de Promociones</h2>
-      <p><strong>Objetivo:</strong> Gestionar ofertas, descuentos y paquetes especiales para atraer clientes y aumentar ventas.</p>
-      <h3>Datos del CRUD:</h3>
-      <ul>
-        <li>ID_Promocion, Nombre, Código, Tipo, Estado.</li>
-        <li>Fecha Inicio/Fin, Días promoción, Horario promoción, Límites de uso.</li>
-        <li>Condiciones, ID_Servicio, Monto mínimo, Membresía.</li>
-        <li>Valor descuento (porcentaje/monto), Servicios incluidos.</li>
-      </ul>
-      <p><strong>Encargado:</strong> Gerente de Marketing/Ventas o Gerente General</p>
-    </div>
+
+    <h1>Sistema Gestión de Reservación Hotel París</h1>
+    <p>El Sistema de Gestión de Reservación es un sistema para poder facilitar el registro de las reservaciones de habitaciones del Hotel París, de igual manera el registro de horario de los empleados. </p>
+
+    <h1>Problemática del proyecto</h1>
+    <p>El Hotel París cuenta con una gran ineficiencia al registar sus reservacions, utilizando un registro hecho a mano, lo cual conlleva a equivocaciones en dicha reservaciones. De igual manera es ineficiente el registro del horario de Entrada/Salida de los empleados.</p>
     
-    <div class="card">
-      <h2>2. Módulo de Servicios</h2>
-      <p><strong>Objetivo:</strong> Administrar catálogo de servicios adicionales, precios y disponibilidad.</p>
-      <h3>Datos del CRUD:</h3>
-      <ul>
-        <li>ID_Servicio, Nombre, Categoría.</li>
-        <li>Descripción, Precio venta, Costo adquisición, Impuestos.</li>
-        <li>Stock, Proveedor, Horario.</li>
-      </ul>
-      <p><strong>Encargado:</strong> Gerente de Operaciones o Jefe de Recepción</p>
-    </div>
+    <h1>Objetivo del proyecto</h1>
+    <p>Implementar un software de gestión hotelera a través de la creación de módulos para el registro de reservaciones, el control de horarios de personal y la administración de habitaciones, entre otros, para agilizar y centralizar los procesos operativos clave del hotel.</p>
     
-    <div class="card">
-      <h2>3. Módulo de Membresía</h2>
-      <p><strong>Objetivo:</strong> Fidelizar clientes frecuentes mediante programa de lealtad.</p>
-      <h3>Datos del CRUD:</h3>
-      <ul>
-        <li>ID, Nombre, Apellido Paterno, Apellido Materno, Fecha Nac., Correo, Teléfono.</li>
-        <li>Nivel, Estado, Vencimiento, Puntos.</li>
-        <li>Visitas, Gasto, Frecuencia de visita, Promociones Canjeadas.</li>
-        <li>Beneficios y condiciones.</li>
-      </ul>
-      <p><strong>Encargado:</strong> Recepcionista y Gerente de Marketing</p>
-    </div>
-    
-    <div class="card">
-      <h2>4. Módulo de Ventas</h2>
-      <p><strong>Objetivo:</strong> Registrar transacciones del motel con control financiero y facturación.</p>
-      <h3>Datos del CRUD:</h3>
-      <ul>
-        <li>ID_Venta, Fecha de venta, Hora de venta, Empleado, Cliente.</li>
-        <li>Producto/Servicio, Cantidad, Precio, Promoción, Descuento.</li>
-        <li>Subtotal, Impuestos, Total, Método de pago.</li>
-      </ul>
-      <p><strong>Encargado:</strong> Recepcionista/Cajero, Gerente de Operaciones y Contador</p>
-    </div>
-  </main>
-  <footer>© 2025 Sistema Motel - Todos los derechos reservados</footer>
+
+    <h1>Subsistemas del proyecto</h1>
+    <p>El sistema se fragmento empleando la estrategia de "divide y vencerás", que tiene como objetivo identificar unidades de desarrollo lo suficientemente claras para ser creadas de manera independiente, pero que a su vez se integren con facilidad en el sistema completo.</p>
+
+    <img src="Imagenes/Diagrama_Modulos.png" alt="" width="700">
+
+    <ul>
+        <li><a href="./Subsistemas/clientes.html">Clientes</a></li>
+        <li><a href="./Subsistemas/pedidos.html">Pedidos</a></li>
+        <li><a href="./Subsistemas/inventario.html">Inventario</a></li>
+        <li><a href="./Subsistemas/ventas.html">Ventas</a></li>
+    </ul>
 </body>
 </html>
