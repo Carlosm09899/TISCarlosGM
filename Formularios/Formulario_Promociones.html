@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nueva Promoción</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Crear Nueva Promoción</h2>
+        
+        <form action="/guardar-promocion" method="post" class="form-grid">
+
+            <label for="nombre_promocion">Nombre Promoción:</label>
+            <input type="text" id="nombre_promocion" name="nombre_promocion" required>
+
+            <label for="codigo_promocion">Código:</label>
+            <input type="text" id="codigo_promocion" name="codigo_promocion" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="3"></textarea>
+
+            <label for="tipo_promocion">Tipo de Promoción:</label>
+            <select id="tipo_promocion" name="tipo_promocion" required>
+                <option value="">Seleccione un tipo...</option>
+                <option value="Porcentaje">Porcentaje</option>
+                <option value="Monto Fijo">Monto Fijo</option>
+                <option value="Combo">Combo</option>
+                <option value="2x1">2x1</option>
+                <option value="Servicio Gratis">Servicio Gratis</option>
+            </select>
+
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado" required>
+                <option value="Activa">Activa</option>
+                <option value="Inactiva">Inactiva</option>
+                <option value="Vencida">Vencida</option>
+                <option value="Agotada">Agotada</option>
+            </select>
+
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+
+            <label for="fecha_fin">Fecha de Fin:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" required>
+            
+            <label for="valor_descuento_porcentaje">Descuento (%):</label>
+            <input type="number" id="valor_descuento_porcentaje" name="valor_descuento_porcentaje" step="0.01" min="0">
+
+            <label for="valor_descuento_monto">Descuento ($):</label>
+            <input type="number" id="valor_descuento_monto" name="valor_descuento_monto" step="0.01" min="0">
+
+            <label for="monto_minimo_compra">Monto Mínimo Compra:</label>
+            <input type="number" id="monto_minimo_compra" name="monto_minimo_compra" step="0.01" min="0">
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="requiere_membresia" name="requiere_membresia" value="1">
+                <label for="requiere_membresia">Requiere Membresía</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="no_acumulable" name="no_acumulable" value="1" checked>
+                <label for="no_acumulable">No Acumulable</label>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="btn-crear">Crear Promoción</button>
+                <button type="button" class="btn-volver" onclick="history.back()">Volver</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
