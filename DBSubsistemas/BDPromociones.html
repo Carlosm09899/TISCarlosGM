@@ -1,0 +1,234 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones BD</title>
+</head>
+<body>
+
+    <a href="./../Submodulos/Promociones.html">[Promociones]</a>
+
+    <h1>Diseño de la base de datos del subsistema de Promociones</h1>
+
+    <br>
+
+    <h1>Diagrama de la base de datos</h1>
+    <img src="./../Imagenes/Diagram_Promociones.png" alt="Diagrama de la base de datos" width="800">
+
+    <h1>Justificación del Diseño de la Base de Datos</h1>
+
+    <h2>Tabla Promociones</h2>
+    <h3>Propósito</h3>
+    <p>Es la tabla principal que almacena toda la información central, las reglas y el valor de cada promoción que ofrece el negocio. Funciona como el expediente maestro de cada oferta.</p>
+    <h3>Campos</h3>
+    <ul>
+        <li>ID_Promocion: Número de identificación único para cada promoción. Es la llave primaria.</li>
+        <li>Nombre_Promocion: El nombre comercial de la promoción (ej. "Descuento de Verano").</li>
+        <li>Codigo_Promocion: El código que el cliente o el personal usa para aplicar la promoción (ej. "VERANO25").</li>
+        <li>Descripcion: Un texto detallado que explica en qué consiste la oferta.</li>
+        <li>Fecha_Registro: Cuándo se inscribió la persona.</li>
+        <li>Tipo_Promocion: Clasifica la promoción (ej. 'Porcentaje', 'Monto Fijo', 'Combo').</li>
+        <li>Estado: Indica si la promoción está 'Activa', 'Vencida', 'Agotada', etc.</li>
+        <li>Fecha_Inicio y Fecha_Fin: Definen el periodo de validez de la oferta.</li>
+        <li>Horario_Aplicable: Sirve para especificar si la promoción solo es válida en ciertas horas (ej. '17:00-19:00').</li>
+        <li>Limite_Usos_Totales y Limite_Usos_Por_Cliente: Controlan cuántas veces se puede usar la promoción en total o por persona.</li>
+        <li>Aplica_A: Especifica a qué área se aplica (ej. 'Habitaciones', 'Restaurante').</li>
+        <li>ID_Servicio_Habitacion_Asociado: Conecta la promoción con un servicio o tipo de habitación específico si es necesario.</li>
+        <li>Monto_Minimo_Compra: Define si se necesita un gasto mínimo para que la promoción sea válida.</li>
+        <li>Requiere_Membresia y No_Acumulable: Son campos de tipo Sí/No (booleanos) que definen condiciones importantes.</li>
+        <li>Canal_Venta: Indica dónde se puede canjear la promoción (ej. 'Online', 'Recepción').</li>
+        <li>Valor_Descuento_Porcentaje y Valor_Descuento_Monto: Almacenan el valor numérico del descuento, ya sea en porcentaje o en un monto fijo.</li>
+    </ul>
+    
+    <h2>Tabla Promocion_Dias</h2>
+    <h3>Propósito</h3>
+    <p>Su única función es registrar los días específicos de la semana en que una promoción es válida. Existe para cumplir con la primera forma normal y no guardar una lista de días en la tabla principal.</p>
+    <h3>Campos</h3>
+    <ul>
+        <li>ID_Promocion: Es una llave foránea que conecta este registro con una promoción específica en la tabla Promociones.</li>
+        <li>Dia_Semana: Almacena un solo día de la semana (ej. 'Lunes', 'Martes', 'Sábado').</li>
+    </ul>
+    <h4>La combinación de ID_Promocion y Dia_Semana forma la llave primaria compuesta, asegurando que no se pueda añadir el mismo día dos veces a la misma promoción.</h4>
+    
+    <h2>Tabla Promocion_Servicios_Incluidos</h2>
+    <h3>Propósito</h3>
+    <p>Al igual que la tabla anterior, su objetivo es listar de forma individual los diferentes servicios o productos que incluye una promoción de tipo "paquete" o "combo".</p>
+    <h3>Campos</h3>
+    <ul>
+        <li>ID_Promocion: Es una llave foránea que conecta este registro con una promoción específica en la tabla Promociones.</li>
+        <li>Descripcion_Servicio: Guarda el nombre o la descripción de un único servicio incluido (ej. 'Desayuno buffet', 'Botella de vino de cortesía').</li>              
+    </ul>
+    <h4>La combinación de ambos campos forma la llave primaria compuesta para evitar que se añada el mismo servicio dos veces al mismo paquete de promoción.</h4>
+    
+
+    <p>El diseño de la base de datos, con sus tablas y campos, tiene el propósito de que el sistema funcione correctamente y con datos fiables. Cada elemento fue creado pensando en las necesidades de quienes lo usan y administran.</p>
+    
+    <h2>Normalización de la Base de Datos</h2>
+    <p>Para asegurar que los datos estén bien organizados y sean consistentes, la base de datos se estructuró siguiendo las tres primeras formas normales (1FN, 2FN y 3FN).</p>
+
+    <h3>1NF (Primera Forma Normal)</h3>
+    <p>Cada tabla tiene una clave primaria única para identificar cada registro, y todas las columnas son atómicas, lo que significa que cada campo almacena un solo valor y no una lista o conjunto de valores.</p>
+    <ul>
+        <li><b>Tabla Promociones</b>: Tiene ID_Promocion como su clave primaria única. Todos sus campos, como Nombre_Promocion y Fecha_Inicio, almacenan un solo dato, cumpliendo con la atomicidad.</li>
+        <li><b>Tabla Promocion_Dias</b>: Utiliza una clave primaria compuesta (ID_Promocion, Dia_Semana) para identificar de forma única cada registro. Sus campos son atómicos, ya que cada fila representa la relación de una promoción con un solo día.</li>
+        <li><b>Tabla Promocion_Servicios_Incluidos</b>: También usa una clave primaria compuesta (ID_Promocion, Descripcion_Servicio). Cada fila contiene un único servicio asociado a una promoción, garantizando la atomicidad de los datos.</li>
+    </ul>
+
+    <h3>2NF (Segunda Forma Normal)</h3>
+    <p>Esta forma requiere que la tabla esté en 1NF y que todos los atributos que no forman parte de la clave primaria dependan completamente de la clave primaria completa, no solo de una parte de ella. Es especialmente relevante para tablas con claves compuestas.</p>
+    <ul>
+        <li><b>Tabla Promociones</b>: Cumple automáticamente con la 2NF porque su clave primaria (ID_Promocion) es simple, formada por una sola columna, por lo que no hay posibilidad de dependencias parciales.</li>
+        <li><b>Tablas Promocion_Dias y Promocion_Servicios_Incluidos</b>: Cumplen perfectamente con la 2NF. Sus claves primarias son compuestas, pero no tienen ninguna columna adicional que no forme parte de la clave. Por lo tanto, es imposible que existan atributos que dependan solo de una parte de la clave.</li>
+    </ul>
+
+    <h3>3NF (Tercera Forma Normal)</h3>
+    <p>Para cumplir con la 3NF, la tabla debe estar en 2NF y ningún atributo que no sea clave puede depender de otro atributo que tampoco sea clave. Esto elimina las dependencias indirectas (transitivas).</p>
+    <ul>
+        <li><b>Tabla Promociones</b>: Cumple con la 3NF porque todos sus campos (como Valor_Descuento_Monto o Requiere_Membresia) dependen directamente de la clave primaria ID_Promocion y no de otros campos dentro de la misma tabla. Por ejemplo, el Tipo_Promocion no determina el Monto_Minimo_Compra.</li>
+        <li><b>Tablas Promocion_Dias y Promocion_Servicios_Incluidos</b>: Cumplen automáticamente con la 3NF porque no poseen atributos que no sean parte de la clave primaria, eliminando así cualquier posibilidad de dependencias transitivas.</li>
+    </ul>    
+    <p>Esta estructura de datos es eficiente porque minimiza la repetición de información y hace que la gestión de la base de datos sea mucho más sencilla.</p>
+
+
+    <h1>Código SQL para crear tablas</h1>
+    <pre><code>
+    CREATE DATABASE PromocionesBD
+
+    USE PromocionesBD;
+
+    -- ---
+    -- Creación de la Tabla de Promociones
+    -- ---
+    CREATE TABLE Promociones (
+        -- Información General
+        ID_Promocion INT PRIMARY KEY IDENTITY(1,1),
+        Nombre_Promocion NVARCHAR(100) NOT NULL,
+        Codigo_Promocion VARCHAR(20) NOT NULL UNIQUE,
+        Descripcion NVARCHAR(MAX) NULL,
+        Tipo_Promocion NVARCHAR(50) NOT NULL CHECK (Tipo_Promocion IN ('Porcentaje', 'Monto Fijo', 'Combo', '2x1', 'Servicio Gratis')),
+        Estado NVARCHAR(20) NOT NULL CHECK (Estado IN ('Activa', 'Inactiva', 'Vencida', 'Agotada')),
+
+        -- Reglas y Vigencia
+        Fecha_Inicio DATE NOT NULL,
+        Fecha_Fin DATE NOT NULL,
+        Horario_Aplicable NVARCHAR(50) NULL,
+        Limite_Usos_Totales INT NULL,
+        Limite_Usos_Por_Cliente INT NULL,
+
+        -- Condiciones y Restricciones
+        Aplica_A NVARCHAR(50) NULL,
+        ID_Servicio_Habitacion_Asociado INT NULL,
+        Monto_Minimo_Compra DECIMAL(10, 2) NULL,
+        Requiere_Membresia BIT NOT NULL DEFAULT 0,
+        Canal_Venta NVARCHAR(50) NULL,
+        No_Acumulable BIT NOT NULL DEFAULT 1,
+
+        -- Valor de la Promoción
+        Valor_Descuento_Porcentaje DECIMAL(5, 2) NULL,
+        Valor_Descuento_Monto DECIMAL(10, 2) NULL
+    );
+    GO
+
+    -- ---
+    -- Creación de las Nuevas Tablas de Unión
+    -- ---
+
+    -- Tabla para almacenar los días en que aplica una promoción
+    CREATE TABLE Promocion_Dias (
+        ID_Promocion INT NOT NULL,
+        Dia_Semana NVARCHAR(20) NOT NULL CHECK (Dia_Semana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo', 'Todos')),
+        
+        -- Llave primaria compuesta para asegurar que no se repita un día para la misma promoción
+        PRIMARY KEY (ID_Promocion, Dia_Semana),
+
+        FOREIGN KEY (ID_Promocion) REFERENCES Promociones(ID_Promocion) ON DELETE CASCADE
+    );
+    GO
+
+    -- Tabla para almacenar los servicios incluidos en una promoción
+    CREATE TABLE Promocion_Servicios_Incluidos (
+        ID_Promocion INT NOT NULL,
+        Descripcion_Servicio NVARCHAR(255) NOT NULL, 
+        
+        PRIMARY KEY (ID_Promocion, Descripcion_Servicio),
+        
+        FOREIGN KEY (ID_Promocion) REFERENCES Promociones(ID_Promocion) ON DELETE CASCADE
+    );
+    GO
+    </code></pre>
+
+
+    <h1>Código SQL para agregar registros a las tablas</h1>
+
+    <h3>Registro de Promociones</h3>
+    <pre><code>
+    INSERT INTO Promociones 
+    (Nombre_Promocion, Codigo_Promocion, Descripcion, Tipo_Promocion, Estado, Fecha_Inicio, Fecha_Fin, Horario_Aplicable, Limite_Usos_Totales, Aplica_A, Requiere_Membresia, Canal_Venta, Valor_Descuento_Porcentaje, Valor_Descuento_Monto) 
+    VALUES
+    ('Oferta Otoñal', 'OTONO20', '20% de descuento en todas las habitaciones estándar.', 'Porcentaje', 'Activa', '2025-09-01', '2025-11-30', NULL, 500, 'Habitaciones', 0, 'Online', 20.00, NULL),
+    ('Madrugador Ejecutivo', 'EXEC15', '15% de descuento reservando con 30 días de antelación.', 'Porcentaje', 'Activa', '2025-01-01', '2025-12-31', NULL, NULL, 'Habitaciones', 0, 'Todos', 15.00, NULL),
+    ('2x1 en Cócteles', 'COCTEL2X1', 'Disfruta de dos cócteles de autor por el precio de uno.', '2x1', 'Activa', '2025-01-01', '2025-12-31', '18:00-20:00', NULL, 'Restaurante', 0, 'Recepción', NULL, NULL),
+    ('Paquete Familiar', 'FAMIPACK', 'Hospedaje y desayuno para 2 adultos y 2 niños.', 'Combo', 'Activa', '2025-06-15', '2025-08-15', NULL, 100, 'Habitaciones', 0, 'Todos', NULL, NULL),
+    ('Descuento Lealtad Oro', 'MIEMBROORO', '$1000 de descuento en tu cuenta final.', 'Monto Fijo', 'Activa', '2025-01-01', '2025-12-31', NULL, NULL, 'Todos', 1, 'Todos', NULL, 1000.00),
+    ('Cena Gratis', 'CENAFREE', 'En estancias de 5 noches o más, te regalamos una cena.', 'Servicio Gratis', 'Activa', '2025-01-01', '2025-12-31', NULL, 300, 'Habitaciones', 0, 'Todos', NULL, NULL),
+    ('Fin de Semana Largo', 'PUENTE10', '10% de descuento en puentes y días festivos.', 'Porcentaje', 'Activa', '2025-01-01', '2025-12-31', NULL, NULL, 'Habitaciones', 0, 'Online', 10.00, NULL),
+    ('Bono de Bienvenida', 'BIENVENIDO50', '$50 de descuento en tu primer consumo.', 'Monto Fijo', 'Activa', '2025-01-01', '2025-12-31', NULL, 2000, 'Restaurante', 1, 'Recepción', NULL, 50.00),
+    ('Paquete Spa y Relax', 'SPAPACK', 'Habitación con vista al mar y dos masajes relajantes.', 'Combo', 'Activa', '2025-02-01', '2025-12-20', NULL, 150, 'Habitaciones', 0, 'Todos', NULL, NULL),
+    ('Jueves de Amigos', 'JUEVES2X1', '2x1 en entradas y platillos seleccionados.', '2x1', 'Activa', '2025-01-01', '2025-12-31', '19:00-22:00', NULL, 'Restaurante', 0, 'Recepción', NULL, NULL),
+    ('Último Minuto', 'LASTMIN25', '25% de descuento reservando el mismo día.', 'Porcentaje', 'Activa', '2025-01-01', '2025-12-31', '14:00-23:00', NULL, 'Habitaciones', 0, 'Recepción', 25.00, NULL),
+    ('Estancia de Negocios', 'BUSINESS100', '$100 de crédito para consumos en el hotel.', 'Monto Fijo', 'Activa', '2025-01-01', '2025-12-31', NULL, NULL, 'Habitaciones', 0, 'Todos', NULL, 100.00),
+    ('San Valentín Especial', 'LOVE14', '14% de descuento en la cena romántica del 14 de Febrero.', 'Porcentaje', 'Inactiva', '2025-02-14', '2025-02-14', '19:00-23:00', 50, 'Restaurante', 0, 'Todos', 14.00, NULL),
+    ('Paquete Aventura', 'AVENTURAPK', 'Incluye tour guiado por la ciudad y equipo de snorkel.', 'Combo', 'Activa', '2025-03-01', '2025-10-31', NULL, 80, 'Habitaciones', 0, 'Online', NULL, NULL),
+    ('Desayuno Gratis', 'DESAYUNOFREE', 'Reserva 3 noches y obtén desayuno buffet sin costo.', 'Servicio Gratis', 'Activa', '2025-01-01', '2025-12-31', NULL, NULL, 'Habitaciones', 0, 'Online', NULL, NULL);
+    GO
+    </code></pre>
+
+    <h3>Registro de Promocion_Dias</h3>
+    <pre><code>
+    INSERT INTO Promocion_Dias (ID_Promocion, Dia_Semana) VALUES
+    (1, 'Todos'), -- Oferta Otoñal
+    (2, 'Todos'), -- Madrugador Ejecutivo
+    (3, 'Lunes'), (3, 'Martes'), (3, 'Miércoles'), (3, 'Jueves'), (3, 'Viernes'), -- 2x1 en Cócteles
+    (4, 'Viernes'), (4, 'Sábado'), (4, 'Domingo'), -- Paquete Familiar
+    (5, 'Todos'), -- Descuento Lealtad Oro
+    (6, 'Todos'), -- Cena Gratis
+    (7, 'Viernes'), (7, 'Sábado'), (7, 'Domingo'), (7, 'Lunes'), -- Fin de Semana Largo
+    (8, 'Todos'), -- Bono de Bienvenida
+    (9, 'Viernes'), (9, 'Sábado'), (9, 'Domingo'), -- Paquete Spa y Relax
+    (10, 'Jueves'), -- Jueves de Amigos
+    (11, 'Todos'), -- Último Minuto
+    (12, 'Lunes'), (12, 'Martes'), (12, 'Miércoles'), (12, 'Jueves'), (12, 'Viernes'), -- Estancia de Negocios
+    (13, 'Martes'), -- San Valentín (asumiendo que el 14/Feb/2025 es martes)
+    (14, 'Todos'), -- Paquete Aventura
+    (15, 'Todos'); -- Desayuno Gratis
+    GO  
+    </code></pre>
+
+    <h3>Registro de Promocion_Servicios_Incluidos</h3>
+    <pre><code>
+    INSERT INTO Promocion_Servicios_Incluidos (ID_Promocion, Descripcion_Servicio) VALUES
+    (4, 'Desayuno Buffet para 2 adultos y 2 niños'),
+    (4, 'Acceso al club infantil');
+
+    -- Servicios para Promoción ID 6 (Cena Gratis)
+    INSERT INTO Promocion_Servicios_Incluidos (ID_Promocion, Descripcion_Servicio) VALUES
+    (6, 'Cena de tres tiempos para dos personas');
+
+    -- Servicios para Promoción ID 9 (Paquete Spa y Relax)
+    INSERT INTO Promocion_Servicios_Incluidos (ID_Promocion, Descripcion_Servicio) VALUES
+    (9, 'Dos masajes relajantes de 50 minutos'),
+    (9, 'Acceso al circuito de hidroterapia');
+
+    -- Servicios para Promoción ID 14 (Paquete Aventura)
+    INSERT INTO Promocion_Servicios_Incluidos (ID_Promocion, Descripcion_Servicio) VALUES
+    (14, 'Tour guiado por el centro histórico'),
+    (14, 'Préstamo de equipo de snorkel por un día');
+
+    -- Servicios para Promoción ID 15 (Desayuno Gratis)
+    INSERT INTO Promocion_Servicios_Incluidos (ID_Promocion, Descripcion_Servicio) VALUES
+    (15, 'Desayuno buffet para dos personas durante la estancia');
+    GO
+    </code></pre>
+</body>
+</html>
