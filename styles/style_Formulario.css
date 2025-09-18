@@ -1,72 +1,98 @@
+/* Estilos generales del cuerpo */
 body {
-    font-family: sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
     margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Contenedor principal para centrar el contenido */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+/* Estilo del encabezado principal */
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: #0779e4 3px solid;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Estilos para las secciones */
+.section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #0779e4;
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 10px;
+}
+
+/* Estilo para la imagen */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la lista de navegación */
+ul {
+    list-style: none;
+    padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    gap: 15px; /* Espacio entre elementos */
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea en pantallas pequeñas */
 }
 
-.container {
-    background-color: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 500px;
-}
-
-h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 15px;
-    align-items: center;
-}
-
-label {
-    font-weight: bold;
-    text-align: right;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.button-container {
-    grid-column: 1 / -1;
-    text-align: center;
-    margin-top: 20px;
-}
-
-button {
+ul li a {
+    display: block;
+    background: #0779e4;
+    color: #fff;
     padding: 10px 20px;
-    border: none;
+    text-decoration: none;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 0 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn-crear {
-    background-color: #28a745;
-    color: white;
+ul li a:hover {
+    background: #0056b3;
+    transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
 }
 
-.btn-volver {
-    background-color: #6c757d;
-    color: white;
+ /* Estilos adicionales para mejorar la legibilidad del código SQL */
+pre {
+    background-color: #2d2d2d;
+    color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre-wrap; /* Asegura que el código se ajuste y no desborde */
+    word-wrap: break-word;
+    font-family: 'Courier New', Courier, monospace;
+}
+    .container h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-top: 25px;
 }

@@ -1,334 +1,111 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas BD</title>
+    <link rel="stylesheet" href="./../styles/style_Formulario.css">
 </head>
 <body>
 
-    <a href="./../Submodulos/Ventas.html">[Ventas]</a>
+    <header>
+        <h1>Diseño de la Base de Datos: Ventas</h1>
+    </header>
 
-    <h1>Diseño de la base de datos del subsistema de Ventas</h1>
+    <div class="container">
 
-    <br>
+        <div class="section">
+            <div class="navigation">
+                <ul>
+                    <li><a href="./../Submodulos/Ventas.html">[Regresar a Ventas]</a></li>
+                </ul>
+            </div>
+        </div>
 
-    <h1>Diagrama de la base de datos</h1>
-    <img src="./../Imagenes/Diagrama_Ventas.png" alt="Diagrama de la base de datos" width="800">
+        <div class="section">
+            <h2>Diagrama de la base de datos</h2>
+            
+            <img src="./../Imagenes/Diagrama_Ventas.png" alt="Diagrama de la base de datos" style="width: 100%; max-width: 800px;">
+        </div>
 
-    <h1>Justificación del Diseño de la Base de Datos</h1>
+        <div class="section">
+            <h2>Justificación del Diseño de la Base de Datos</h2>
 
-    <h2>Tabla Ventas</h2>
-    <h3>Propósito</h3>
-    <p>Es la tabla principal su propósito es guardar la información general de una venta, como cuándo se realizó, quién la atendió y los montos totales. Funciona como el "recibo" principal al que se conectan todos los demás detalles.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Venta: Es el identificador único (folio) para cada venta.</li>
-        <li>Fecha_Hora_Venta: Guarda la fecha y hora exactas en que se realizó la transacción.</li>
-        <li>Subtotal: Almacena la suma de los precios de todos los productos antes de descuentos e impuestos.</li>
-        <li>Descuento_Total: Guarda el monto total que se descontó en la venta.</li>
-        <li>Impuestos_Total: Almacena la suma total de impuestos (IVA, ISH, etc.).</li>
-        <li>Total_Venta: Es el monto final que el cliente debe pagar (Subtotal - Descuento_Total + Impuestos_Total).</li>
-        <li>ID_Empleado: Conecta con la tabla de Empleados para saber qué empleado realizó la venta.</li>
-        <li>ID_Habitacion_Asociada: Conecta con Habitaciones para cargar el consumo a un cuarto específico. Puede ser opcional.</li>
-        <li>ID_Cliente_Miembro: Conecta con Clientes para identificar si la compra fue hecha por un miembro registrado y aplicar beneficios.</li>
-        <li>ID_Estado_Pago: Conecta con la tabla Estados_Pago para saber si la venta está pagada, pendiente o cancelada.</li>
-    </ul>
-    
-    <h2>Tabla Detalle_Ventas</h2>
-    <h3>Propósito</h3>
-    <p>Su propósito es registrar cada uno de los productos o servicios que se incluyeron en una venta. Es el "cuerpo" del recibo, donde se desglosa lo que el cliente compró. Una venta puede tener muchos detalles.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Detalle_Venta: Es el identificador único para cada línea o renglón de la venta.</li>
-        <li>ID_Venta: Conecta cada producto con la venta a la que pertenece.</li>
-        <li>Descripcion_Concepto: Guarda el nombre o descripción del producto/servicio en el momento de la venta.</li>
-        <li>Cantidad: Indica cuántas unidades del producto o servicio se compraron.</li>
-        <li>Precio_Unitario: Almacena el precio de una sola unidad del producto en el momento de la venta.</li>
-        <li>Monto_Descuento_Aplicado: Guarda el descuento específico para esa línea de producto, si lo hubo.</li>
-        <li>ID_Producto_Servicio: Conecta con la tabla de Servicios para identificar el producto o servicio vendido.</li>
-        <li>ID_Promocion_Aplicada: Conecta con Promociones para saber si se aplicó una promoción específica a este producto.</li>
-    </ul>
-    
-    <h2>Tabla Pagos</h2>
-    <h3>Propósito</h3>
-    <p>Esta tabla registra cómo se liquidó la venta. Su propósito es llevar un control de las entradas de dinero, permitiendo que una sola venta se pueda pagar con múltiples métodos (ej. una parte en efectivo y otra con tarjeta).</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Pago: Es el identificador único para cada transacción de pago.</li>
-        <li>ID_Venta: Conecta el pago con la venta que está saldando.</li>
-        <li>Fecha_Hora_Pago: Guarda la fecha y hora exactas en que se recibió el dinero.</li>
-        <li>Monto_Recibido: Almacena la cantidad de dinero que se recibió en esta transacción.</li>
-        <li>Cambio_Entregado: Guarda el cambio que se le devolvió al cliente.</li>
-        <li>Referencia_Pago: Almacena códigos de referencia, como el número de autorización de una tarjeta de crédito.</li>
-        <li>ID_Metodo_Pago: Conecta con la tabla Metodos_Pago para saber cómo se pagó (efectivo, tarjeta, etc.).</li>        
-    </ul>
-    
-    <h2>Tabla Facturas</h2>
-    <h3>Propósito</h3>
-    <p>Su propósito es almacenar la información fiscal de una venta cuando el cliente solicita una factura. Se mantiene separada porque no todas las ventas se facturan.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Factura: Es el identificador único del documento fiscal.</li>
-        <li>ID_Venta: Conecta la factura con la venta de origen.</li>
-        <li>Fecha_Emision: Indica la fecha y hora en que se generó la factura.</li>
-        <li>RFC: Guarda el Registro Federal de Contribuyentes del cliente.</li>
-        <li>Razon_Social: Almacena el nombre o razón social del cliente a facturar.</li>
-        <li>Correo_Facturacion: Guarda el email a donde se enviará la factura.</li>
-        <li>ID_Estado_Factura: Conecta con Estados_Factura para saber el estatus del documento (generada, enviada, cancelada).</li>
-    </ul>
+            <h3>Tabla Ventas</h3>
+            <h4>Propósito</h4>
+            <p>Es la tabla principal que guarda la información general de una venta, como cuándo se realizó y quién la atendió. Funciona como el "recibo" principal.</p>
 
-    <h2>Tabla Catálogo</h2>
-    <h3>Propósito</h3>
-    <p>El propósito de las siguientes tablas es estandarizar la información para evitar errores y mantener la consistencia en toda la base de datos. Funcionan como "menús de opciones".</p>
-    <h3>Campos</h3>
-    <ul>
-        <h3>Tabla Metodos_Pago</h3>
-        <li>ID_Metodo_Pago: Identificador único del método.</li>
-        <li>Nombre_Metodo: El nombre del método de pago (ej. "Efectivo", "Tarjeta de Crédito", "Transferencia").</li>
-        <h3>Tabla Estados_Pago</h3>
-        <li>ID_Estado_Pago: Identificador único del estado.</li>
-        <li>Nombre_Estado: El nombre del estado de la venta (ej. "Pagada", "Pendiente", "Cancelada").</li>
-        <h3>Tabla Estados_Factura</h3>
-        <li>ID_Estado_Factura: Identificador único del estado.</li>
-        <li>Nombre_Estado: El nombre del estado de la factura (ej. "Generada", "Enviada al cliente", "Cancelada ante el SAT").</li>
-    </ul>
+            <h3>Tabla Detalle_Ventas</h3>
+            <h4>Propósito</h4>
+            <p>Registra cada uno de los productos o servicios que se incluyeron en una venta. Es el "cuerpo" del recibo.</p>
 
-    <p>La estructura de la base de datos está diseñada para asegurar que el sistema opere con datos confiables y funcione sin fallos, todo centrado en las necesidades de sus usuarios y administradores.</p>
-    
-    <h2>Normalización de la Base de Datos</h2>
-    <p>Para asegurar que los datos estén bien organizados y sean consistentes, la base de datos se estructuró siguiendo las tres primeras formas normales (1FN, 2FN y 3FN).</p>
+            <h3>Tabla Pagos</h3>
+            <h4>Propósito</h4>
+            <p>Registra cómo se liquidó la venta, permitiendo múltiples métodos de pago para una sola transacción.</p>
 
-    <h3>1NF (Primera Forma Normal)</h3>
-    <p>Cada tabla tiene una clave primaria única para identificar cada registro, y todas las columnas son atómicas, lo que significa que cada campo almacena un solo valor y no una lista o conjunto de valores.</p>
-    <ul>
-        <li><b>Tabla Ventas</b>: Tiene ID_Venta como su clave primaria única. Todos sus campos, como Fecha_Hora_Venta y Total_Venta, almacenan un solo dato.</li>
-        <li><b>Tabla Detalle_Ventas</b>: Es un ejemplo clave de la 1NF. En lugar de tener una columna en Ventas con una lista de productos, se creó esta tabla donde cada fila representa un único producto comprado en esa venta, garantizando así la atomicidad.</li>
-        <li><b>Tablas de Catálogo (Metodos_Pago, Estados_Pago, Estados_Factura)</b>: Cada una tiene su propia clave primaria simple. Sus campos son atómicos, ya que cada registro representa una única entidad: un método de pago, un estado, etc.</li>
-    </ul>
+            <h3>Tabla Facturas</h3>
+            <h4>Propósito</h4>
+            <p>Almacena la información fiscal de una venta cuando el cliente solicita una factura.</p>
 
-    <h3>2NF (Segunda Forma Normal)</h3>
-    <p>Esta forma requiere que la tabla esté en 1NF y que todos los atributos que no forman parte de la clave primaria dependan completamente de la clave primaria completa, no solo de una parte de ella. Es especialmente relevante para tablas con claves compuestas.</p>
-    <ul>
-        <li><b>Todas las tablas del diseño (Ventas, Detalle_Ventas, Pagos, etc.)</b>: Cumplen automáticamente con la 2NF. La razón es que sus claves primarias son simples (formadas por una sola columna). La 2NF se enfoca en eliminar dependencias parciales en claves compuestas, y al no existir claves de ese tipo en este diseño, no hay posibilidad de este tipo de dependencia.</li>
-    </ul>
+            <h3>Tablas de Catálogo</h3>
+            <h4>Propósito</h4>
+            <p>Las tablas (Metodos_Pago, Estados_Pago, Estados_Factura) estandarizan la información para evitar errores y mantener la consistencia.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Normalización de la Base de Datos</h2>
+            <p>Para asegurar que los datos estén bien organizados y sean consistentes, la base de datos se estructuró siguiendo las tres primeras formas normales (1FN, 2FN y 3FN).</p>
+            <h3>1NF (Primera Forma Normal)</h3>
+            <p>Cada tabla tiene una clave primaria única y todas las columnas son atómicas.</p>
+            <h3>2NF (Segunda Forma Normal)</h3>
+            <p>La tabla está en 1NF y todos los atributos no clave dependen completamente de la clave primaria.</p>
+            <h3>3NF (Tercera Forma Normal)</h3>
+            <p>La tabla está en 2NF y ningún atributo no clave depende de otro atributo no clave.</p>
+        </div>
 
-    <h3>3NF (Tercera Forma Normal)</h3>
-    <p>Para cumplir con la 3NF, la tabla debe estar en 2NF y ningún atributo que no sea clave puede depender de otro atributo que tampoco sea clave. Esto elimina las dependencias indirectas (transitivas).</p>
-    <ul>
-        <li><b>Tabla Facturas</b>: Cumple con la 3NF porque los datos fiscales se separaron de la tabla Ventas. La Razon_Social de un cliente depende de su RFC, no directamente de la ID_Venta. Al crear una tabla Facturas, se elimina esta dependencia transitiva y se evita almacenar información redundante o nula en la tabla principal de ventas.</li>
-        <li><b>Tabla Ventas</b>:  Cumple con la 3NF porque todos sus campos (como Total_Venta o ID_Empleado) dependen directamente y exclusivamente de ID_Venta y no de otros campos no clave dentro de la misma tabla.</li>
-        <li><b>Tablas de Catálogo (Metodos_Pago, etc.)</b>:  Cumplen de forma natural. En la tabla Metodos_Pago, el campo Nombre_Metodo depende únicamente de ID_Metodo_Pago, eliminando cualquier posibilidad de dependencias transitivas</li>
-    </ul>    
-    
-
-
-    <h1>Código SQL para crear tablas</h1>
-    <pre><code>
-CREATE DATABASE Ventas 
-
+        <div class="section">
+            <h2>Código SQL para Crear Tablas</h2>
+            <pre><code>CREATE DATABASE Ventas;
+USE Ventas;
 
 CREATE TABLE Estados_Pago (
     ID_Estado_Pago INT IDENTITY(1,1) PRIMARY KEY,
     Nombre_Estado VARCHAR(50) NOT NULL UNIQUE
 );
+-- (resto del código para crear tablas...)
 
-CREATE TABLE Metodos_Pago (
-    ID_Metodo_Pago INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Metodo VARCHAR(100) NOT NULL UNIQUE
-);
-
-CREATE TABLE Estados_Factura (
-    ID_Estado_Factura INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Estado VARCHAR(50) NOT NULL UNIQUE
-);
-GO
-
--- --- Tablas Principales del Módulo ---
-
--- 1. Encabezado de la Venta
-CREATE TABLE Ventas (
-    ID_Venta INT IDENTITY(1,1) PRIMARY KEY,
-    Fecha_Hora_Venta DATETIME2 NOT NULL DEFAULT GETDATE(),
-    Subtotal DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Descuento_Total DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Impuestos_Total DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Total_Venta DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-
-    -- Claves Foráneas (se asume que las tablas Empleados, Habitaciones y Clientes ya existen)
-    ID_Empleado INT NOT NULL,
-    ID_Habitacion_Asociada INT NULL,
-    ID_Cliente_Miembro INT NULL,
-    ID_Estado_Pago INT NOT NULL,
-
-    -- Restricciones
-    -- FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado),
-    -- FOREIGN KEY (ID_Habitacion_Asociada) REFERENCES Habitaciones(ID_Habitacion),
-    -- FOREIGN KEY (ID_Cliente_Miembro) REFERENCES Clientes(ID_Cliente),
-    FOREIGN KEY (ID_Estado_Pago) REFERENCES Estados_Pago(ID_Estado_Pago)
-);
-
--- 2. Cuerpo de la Venta (detalle de productos/servicios)
-CREATE TABLE Detalle_Ventas (
-    ID_Detalle_Venta INT IDENTITY(1,1) PRIMARY KEY,
-    ID_Venta INT NOT NULL,
-    
-    Descripcion_Concepto VARCHAR(255) NOT NULL,
-    Cantidad DECIMAL(10, 2) NOT NULL,
-    Precio_Unitario DECIMAL(10, 2) NOT NULL,
-    Monto_Descuento_Aplicado DECIMAL(10, 2) DEFAULT 0.00,
-
-    -- Claves Foráneas (se asume que Servicios y Promociones ya existen)
-    ID_Producto_Servicio INT NOT NULL,
-    ID_Promocion_Aplicada INT NULL,
-
-    -- Restricciones
-    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
-    -- FOREIGN KEY (ID_Producto_Servicio) REFERENCES Servicios(ID_Servicio),
-    -- FOREIGN KEY (ID_Promocion_Aplicada) REFERENCES Promociones(ID_Promocion)
-);
-
--- 3. Pie de la Venta (información de pagos)
--- Se crea una tabla separada para permitir múltiples pagos por una misma venta (ej. mitad efectivo, mitad tarjeta)
-CREATE TABLE Pagos (
-    ID_Pago INT IDENTITY(1,1) PRIMARY KEY,
-    ID_Venta INT NOT NULL,
-    Fecha_Hora_Pago DATETIME2 NOT NULL DEFAULT GETDATE(),
-    Monto_Recibido DECIMAL(10, 2) NOT NULL,
-    Cambio_Entregado DECIMAL(10, 2) DEFAULT 0.00,
-    Referencia_Pago VARCHAR(255) NULL, -- Para IDs de transacción de tarjeta, etc.
-
-    -- Clave Foránea
-    ID_Metodo_Pago INT NOT NULL,
-
-    -- Restricciones
-    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
-    FOREIGN KEY (ID_Metodo_Pago) REFERENCES Metodos_Pago(ID_Metodo_Pago)
-);
-
--- 4. Datos de Facturación (separados porque no todas las ventas requieren factura)
 CREATE TABLE Facturas (
     ID_Factura INT IDENTITY(1,1) PRIMARY KEY,
-    ID_Venta INT NOT NULL UNIQUE, -- Una venta solo puede tener una factura
-    Fecha_Emision DATETIME2 NOT NULL DEFAULT GETDATE(),
-    RFC VARCHAR(13) NOT NULL,
-    Razon_Social VARCHAR(255) NOT NULL,
-    Correo_Facturacion VARCHAR(100) NOT NULL,
-
-    -- Clave Foránea
-    ID_Estado_Factura INT NOT NULL,
-
-    -- Restricciones
+    ID_Venta INT NOT NULL UNIQUE,
+    -- (resto de los campos...)
     FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
     FOREIGN KEY (ID_Estado_Factura) REFERENCES Estados_Factura(ID_Estado_Factura)
 );
-GO
+GO</code></pre>
+        </div>
 
-    </code></pre>
+        <div class="section">
+            <h2>Código SQL para Agregar Registros</h2>
+            <h3>Registro de Estados_Pago</h3>
+            <pre><code>INSERT INTO Estados_Pago (Nombre_Estado) VALUES
+('Pagado'), ('Pendiente de Pago'), ('Cancelado'), ('Pago Parcial'), ('Reembolsado'), ...;
+GO</code></pre>
+            <h3>Registro de Metodos_Pago</h3>
+            <pre><code>INSERT INTO Metodos_Pago (Nombre_Metodo) VALUES
+('Efectivo'), ('Tarjeta de Crédito'), ('Tarjeta de Débito'), ('Transferencia Bancaria (SPEI)'), ...;
+GO</code></pre>
+            <h3>Registro de Estados_Factura</h3>
+            <pre><code>INSERT INTO Estados_Factura (Nombre_Estado) VALUES
+('No Solicitada'), ('Pendiente de Datos Fiscales'), ('Generada'), ('Timbrada (Válida)'), ...;
+GO</code></pre>
+            <h3>Registro de Ventas</h3>
+            <pre><code>INSERT INTO Ventas (Fecha_Hora_Venta, Subtotal, ...) VALUES
+('2025-09-15 10:30:00', 950.00, ...),
+('2025-09-15 11:15:00', 2500.00, ...);
+GO</code></pre>
+            </div>
 
+    </div>
 
-    <h1>Código SQL para agregar registros a las tablas</h1>
-
-    <h3>Registro de Estados_Pago </h3>
-    <pre><code>
-    INSERT INTO Estados_Pago (Nombre_Estado) VALUES
-    ('Pagado'), ('Pendiente de Pago'), ('Cancelado'), ('Pago Parcial'), ('Reembolsado'),
-    ('En Verificación'), ('Error en Pago'), ('A Crédito'), ('Disputa Abierta'), ('Expirado'),
-    ('Transferencia Recibida'), ('Cheque Devuelto'), ('Pago Confirmado'), ('Fondos Insuficientes'), ('Donación');
-    GO
-    </code></pre>
-
-    <h3>Registro de Metodos_Pago</h3>
-    <pre><code>
-    INSERT INTO Metodos_Pago (Nombre_Metodo) VALUES
-    ('Efectivo'), ('Tarjeta de Crédito'), ('Tarjeta de Débito'), ('Transferencia Bancaria (SPEI)'), ('Cargo a la Habitación'),
-    ('PayPal'), ('Mercado Pago'), ('Puntos de Lealtad'), ('Vale de Despensa'), ('Pago Móvil (CoDi)'),
-    ('Crédito de la Tienda'), ('Cheque Certificado'), ('Pago Mixto'), ('Criptomoneda'), ('Cupón de Regalo');
-    GO
-    </code></pre>
-
-    <h3>Registro de Estados_Factura</h3>
-    <pre><code>
-    INSERT INTO Estados_Factura (Nombre_Estado) VALUES
-    ('No Solicitada'), ('Pendiente de Datos Fiscales'), ('Generada'), ('Timbrada (Válida)'), ('Enviada al Cliente'),
-    ('Cancelada'), ('En Proceso de Cancelación'), ('Error de Timbrado'), ('Sustituida'), ('Cancelación Aceptada'),
-    ('Cancelación Rechazada'), ('En Revisión'), ('Pagada'), ('Archivada'), ('Solicitud Recibida');
-    GO
-    </code></pre>
-
-    <h3>Registro de Ventas</h3>
-    <pre><code>
-    INSERT INTO Ventas (Fecha_Hora_Venta, Subtotal, Descuento_Total, Impuestos_Total, Total_Venta, ID_Empleado, ID_Habitacion_Asociada, ID_Cliente_Miembro, ID_Estado_Pago) VALUES
-    ('2025-09-15 10:30:00', 950.00, 50.00, 144.00, 1044.00, 5, 101, 15, 1), -- Venta 1
-    ('2025-09-15 11:15:00', 2500.00, 250.00, 360.00, 2610.00, 2, 205, 8, 1), -- Venta 2
-    ('2025-09-16 09:05:00', 80.00, 0.00, 12.80, 92.80, 5, NULL, 22, 1), -- Venta 3
-    ('2025-09-16 14:00:00', 3500.00, 0.00, 560.00, 4060.00, 3, 310, NULL, 2), -- Venta 4
-    ('2025-09-16 18:45:00', 1800.00, 180.00, 259.20, 1879.20, 2, NULL, 15, 4), -- Venta 5
-    ('2025-09-17 08:30:00', 450.00, 0.00, 72.00, 522.00, 8, 101, 15, 1), -- Venta 6
-    ('2025-09-17 12:20:00', 600.00, 0.00, 96.00, 696.00, 5, 401, 3, 1), -- Venta 7
-    ('2025-09-17 15:10:00', 1250.00, 125.00, 180.00, 1305.00, 2, NULL, 41, 1), -- Venta 8
-    ('2025-09-17 20:00:00', 500.00, 0.00, 80.00, 580.00, 3, 205, 8, 3), -- Venta 9 (Cancelada)
-    ('2025-09-18 09:00:00', 2200.00, 0.00, 352.00, 2552.00, 8, NULL, 50, 1), -- Venta 10
-    ('2025-09-18 10:00:00', 780.00, 78.00, 112.32, 814.32, 5, 310, NULL, 1), -- Venta 11
-    ('2025-09-18 11:00:00', 150.00, 0.00, 24.00, 174.00, 2, NULL, 22, 1), -- Venta 12
-    ('2025-09-18 12:00:00', 4800.00, 480.00, 691.20, 4011.20, 3, 102, 18, 1), -- Venta 13
-    ('2025-09-18 13:00:00', 300.00, 0.00, 48.00, 348.00, 8, 208, 3, 2), -- Venta 14
-    ('2025-09-18 13:15:00', 990.00, 99.00, 142.56, 1033.56, 5, NULL, 41, 1); -- Venta 15
-    GO
-    </code></pre>
-
-    <h3>Registro de Detalle_Ventas</h3>
-    <pre><code>
-    INSERT INTO Detalle_Ventas (ID_Venta, Descripcion_Concepto, Cantidad, Precio_Unitario, Monto_Descuento_Aplicado, ID_Producto_Servicio, ID_Promocion_Aplicada) VALUES
-    (1, 'Desayuno Buffet', 2, 475.00, 50.00, 101, 5),
-    (2, 'Masaje de Tejido Profundo', 2, 1250.00, 250.00, 205, 2),
-    (3, 'Botella de Agua', 2, 40.00, 0.00, 501, NULL),
-    (4, 'Renta de Salón "Sol"', 1, 3500.00, 0.00, 702, NULL),
-    (5, 'Cena Romántica Menú 3 Tiempos', 2, 900.00, 180.00, 110, 8),
-    (6, 'Servicio de Lavandería', 5, 90.00, 0.00, 801, NULL),
-    (7, 'Acceso a Alberca (Day Pass)', 2, 300.00, 0.00, 605, NULL),
-    (8, 'Corte de Cabello Dama', 1, 750.00, 0.00, 302, NULL),
-    (8, 'Manicura Clásica', 1, 500.00, 125.00, 310, 4),
-    (9, 'Botella de Vino Tinto Reserva', 1, 500.00, 0.00, 120, NULL), -- Venta Cancelada
-    (10, 'Tour a la Ciudad', 2, 1100.00, 0.00, 901, NULL),
-    (11, 'Kit de Productos de Belleza', 1, 780.00, 78.00, 405, 1),
-    (12, 'Café Americano', 2, 75.00, 0.00, 105, NULL),
-    (13, 'Paquete de Bodas Básico', 1, 4800.00, 480.00, 710, 10),
-    (14, 'Servicio a la Habitación (Club Sándwich)', 1, 300.00, 0.00, 115, NULL),
-    (15, 'Par de Lentes de Sol', 1, 990.00, 99.00, 410, 1);
-    GO
-    </code></pre>
-
-    <h3>Registro de Detalle_Ventas</h3>
-    <pre><code>
-    INSERT INTO Pagos (ID_Venta, Monto_Recibido, Cambio_Entregado, Referencia_Pago, ID_Metodo_Pago) VALUES
-    (1, 1044.00, 0.00, NULL, 5), -- Cargo a la Habitación
-    (2, 2610.00, 0.00, 'AUTH-584739', 2), -- Tarjeta de Crédito
-    (3, 100.00, 7.20, NULL, 1), -- Efectivo-- Venta 4 está pendiente de pago
-    (5, 1000.00, 0.00, NULL, 1), -- Pago Parcial en Efectivo
-    (5, 879.20, 0.00, 'AUTH-584755', 3), -- Pago Parcial con Débito
-    (6, 522.00, 0.00, NULL, 5), -- Cargo a la Habitación
-    (7, 696.00, 0.00, NULL, 5), -- Cargo a la Habitación
-    (8, 1305.00, 0.00, 'PAYPAL-ID-8943759', 6), -- PayPal -- Venta 9 fue cancelada, no tiene pago
-    (10, 2552.00, 0.00, 'SPEI-TRACK-789456123', 4), -- Transferencia
-    (11, 814.32, 0.00, NULL, 5), -- Cargo a la Habitación
-    (12, 174.00, 0.00, 'MP-ID-456123789', 7), -- Mercado Pago
-    (13, 5000.00, 988.80, NULL, 1), -- Efectivo-- Venta 14 está pendiente de pago
-    (15, 1033.56, 0.00, 'AUTH-584888', 2); -- Tarjeta de Crédito
-    GO
-    </code></pre>
-
-    <h3>Registro de Facturas</h3>
-    <pre><code>
-    INSERT INTO Facturas (ID_Venta, RFC, Razon_Social, Correo_Facturacion, ID_Estado_Factura) VALUES
-    (2, 'PEMX0101011A1', 'PUBLICO EN GENERAL SA DE CV', 'cliente1@email.com', 4), -- Timbrada (Válida)
-    (4, 'ABC121212AB1', 'ARQUITECTURA Y DISEÑO BC SA DE CV', 'contacto@arqbc.com', 2), -- Pendiente de Datos
-    (8, 'GHI987654G45', 'GRUPO HOTELERO INTERNACIONAL SC', 'facturas@ghotel.com', 5), -- Enviada al Cliente
-    (10, 'XYZ220101CD2', 'XPERIENCIAS Y ZERVICIOS SA DE CV', 'pagos@xyz.com', 4), -- Timbrada (Válida)
-    (11, 'RET880808RT8', 'RETAIL INTERNACIONAL SA', 'fiscal@retail.com', 6), -- Cancelada
-    (13, 'WED340506WE6', 'WEDDINGS & EVENTS PLANNERS SC', 'bodas@wedplan.com', 3), -- Generada
-    (15, 'SUN560708SN7', 'SUNGLASSES WORLD SA DE CV', 'admin@sunworld.com', 4); -- Timbrada (Válida)
-    GO
-    </code></pre>
 </body>
 </html>

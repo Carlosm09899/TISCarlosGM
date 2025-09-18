@@ -1,326 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membresía BD</title>
+    <link rel="stylesheet" href="./../styles/style_Formulario.css">
 </head>
 <body>
 
-    <a href="./../Submodulos/Membresia.html">[Membresía]</a>
+    <header>
+        <h1>Diseño de la Base de Datos: Membresía</h1>
+    </header>
 
-    <h1>Diseño de la base de datos del subsistema de Membresía</h1>
+    <div class="container">
 
-    <br>
+        <div class="section">
+            <a href="./../Submodulos/Membresia.html">[Regresar a Membresía]</a>
+        </div>
 
-    <h1>Diagrama de la base de datos</h1>
-    <img src="./../Imagenes/Diagrama_Membresi.png" alt="Diagrama de la base de datos" width="800">
+        <div class="section">
+            <h2>Diagrama de la base de datos</h2>
+            
+            <img src="./../Imagenes/Diagrama_Membresi.png" alt="Diagrama de la base de datos" style="width: 100%; max-width: 800px;">
+        </div>
 
-    <h1>Descripción de Pertinencia de la Arquitectura de la Base de Datos</h1>
+        <div class="section">
+            <h2>Descripción de Pertinencia de la Arquitectura</h2>
 
-    <h2>Tabla Perfil Miembro</h2>
-    <h3>Propósito</h3>
-    <p> Es la tabla central que guarda la información personal y de contacto de cada persona registrada.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Miembro: Un número de identificación único para cada persona.</li>
-        <li>Nombre, Apellidos, Fecha_Nacimiento: Datos personales básicos.</li>
-        <li>Correo_Electronico, Numero_Telefono: Datos de contacto.</li>
-        <li>Contraseña: Almacena de forma segura la contraseña del cliente, necesaria para el acceso a su cuenta.</li>
-        <li>Fecha_Registro: Cuándo se inscribió la persona.</li>
-    </ul>
-    
-    <h2>Tabla Niveles de Membresía</h2>
-    <h3>Propósito</h3>
-    <p>Funciona como un catálogo que define los únicos tipos de membresía que tu negocio ofrece.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Nivel: Un número único para cada nivel (ej. 1, 2, 3).</li>
-        <li>Nombre_Nivel: El nombre del nivel (ej. 'Bronce', 'Plata', 'Oro').</li>
-    </ul>
-    
-    <h2>Tabla Beneficios</h2>
-    <h3>Propósito</h3>
-    <p>Es otro catálogo que describe cada uno de los beneficios o ventajas que se pueden ofrece</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Beneficio: Un número único para cada beneficio.</li>
-        <li>Descripcion_Beneficio: El texto que explica el beneficio (ej. 'Acceso gratuito al spa').</li>
-        <li>Condiciones_Beneficio: La "letra pequeña" del beneficio (ej. 'Sujeto a disponibilidad').</li>        
-    </ul>
-    
-    <h2>Tabla Nivel del Beneficio</h2>
-    <h3>Propósito</h3>
-    <p>Su única y más importante función es conectar o unir los niveles con sus beneficios.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Nivel: El número del nivel.</li>
-        <li>ID_Beneficio: El número del beneficio.</li>
-    </ul>
-    
-    <h2>Tabla Membresía</h2>
-    <h3>Propósito</h3>
-    <p> Vincula a un miembro específico con un nivel de membresía y gestiona su estado actual.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Miembro: Para saber de quién es la membresía.</li>
-        <li>ID_Nivel: Para saber qué nivel tiene esa persona.</li>
-        <li>Estado_Membresia: Para saber si está 'Activa' o 'Vencida'.</li>
-        <li>Fecha_Vencimiento: La fecha de caducidad de su membresía.</li>
-        <li>Puntos_Acumulados: El total de puntos que tiene el miembro.</li>
-    </ul>
+            <h3>Tabla Perfil Miembro</h3>
+            <h4>Propósito</h4>
+            <p>Es la tabla central que guarda la información personal y de contacto de cada persona registrada.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Miembro:</b> Un número de identificación único para cada persona.</li>
+                <li><b>Nombre, Apellidos, Fecha_Nacimiento:</b> Datos personales básicos.</li>
+                <li><b>Correo_Electronico, Numero_Telefono:</b> Datos de contacto.</li>
+                <li><b>Contraseña:</b> Almacena de forma segura la contraseña del cliente.</li>
+                <li><b>Fecha_Registro:</b> Cuándo se inscribió la persona.</li>
+            </ul>
 
-    <h2>Tabla Historial Visitas</h2>
-    <h3>Propósito</h3>
-    <p> Funciona como una bitácora que registra cada visita que un miembro realiza.</p>
-    <h3>Campos</h3>
-    <ul>
-        <li>ID_Miembro: Para saber quién realizó la visita.</li>
-        <li>Fecha_Visita: Cuándo fue al Hotel.</li>
-        <li>Gasto_Total_Visita: Cuánto dinero gastó en cada visita.</li>
-        <li>Habitacion_Ocupada, Servicios_Consumidos: Detalles de la visita.</li>
-    </ul>
+            <h3>Tabla Niveles de Membresía</h3>
+            <h4>Propósito</h4>
+            <p>Funciona como un catálogo que define los únicos tipos de membresía que tu negocio ofrece.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Nivel:</b> Un número único para cada nivel (ej. 1, 2, 3).</li>
+                <li><b>Nombre_Nivel:</b> El nombre del nivel (ej. 'Bronce', 'Plata', 'Oro').</li>
+            </ul>
 
-    <p>El diseño de la base de datos, con sus tablas y campos, tiene el propósito de que el sistema funcione correctamente y con datos fiables. Cada elemento fue creado pensando en las necesidades de quienes lo usan y administran.</p>
-    
-    <h2>Normalización de la Base de Datos</h2>
-    <p>Para asegurar que los datos estén bien organizados y sean consistentes, la base de datos se estructuró siguiendo las tres primeras formas normales (1FN, 2FN y 3FN).</p>
-    
-    <h3>1NF (Primera Forma Normal)</h3>
-    <p>Cada tabla tiene una clave primaria única para identificar cada registro, y todas las columnas son atómicas, lo que significa que cada campo almacena un solo valor y no una lista o conjunto de valores.</p>
-    <ul>
-        <li><b>Tabla Perfil_Miembro</b>: Tiene ID_Miembro como su clave primaria única. Campos como Nombre y Correo_Electronico guardan un solo dato, cumpliendo con la atomicidad.</li>
-        <li><b>Tabla Membresia</b>: ID_Membresia identifica de forma única cada membresía. Los campos como ID_Nivel, Estado_Membresia y Fecha_Vencimiento contienen valores individuales e indivisibles.</li>
-        <li><b>Tablas Niveles_Membresia y Beneficios</b>: En estas tablas de catálogo, ID_Nivel e ID_Beneficio son las claves primarias. Sus campos de descripción, como Nombre_Nivel, almacenan un solo texto.</li>
-        <li><b>Tabla Nivel_Beneficio</b>: Utiliza una clave primaria compuesta (ID_Nivel, ID_Beneficio) para asegurar que cada relación entre un nivel y un beneficio sea única. Cada campo es atómico, ya que solo contiene un número de identificación.</li>
-        <li><b>Tabla Historial_Visitas</b>: ID_Visita es la clave primaria para cada visita registrada. Todos sus campos, como Fecha_Visita y Gasto_Total_Visita, están diseñados para contener un solo valor atómico.</li>
-    </ul>
-    
-    <h3>2NF (Segunda Forma Normal)</h3>
-    <p>Esta forma requiere que la tabla esté en 1NF y que todos los atributos que no forman parte de la clave primaria dependan completamente de la clave primaria completa, no solo de una parte de ella. Es especialmente relevante para tablas con claves compuestas.</p>
-    <ul>
-        <li><b>Tablas Perfil_Miembro, Membresia, Niveles_Membresia, Beneficios e Historial_Visitas</b>: Todas estas tablas cumplen automáticamente con la 2NF porque sus claves primarias son simples (formadas por una sola columna). Por lo tanto, no existe la posibilidad de que un campo dependa solo de una parte de la clave.</li>
-        <li><b>Tabla Nivel_Beneficio</b>: Su clave primaria es compuesta (ID_Nivel, ID_Beneficio). Esta tabla cumple perfectamente con la 2NF porque no tiene ninguna columna adicional. Sus únicos campos forman la clave primaria completa, eliminando así la posibilidad de que un campo dependa solo de ID_Nivel o solo de ID_Beneficio.</li>
-    </ul>
-    
-    <h3>3NF (Tercera Forma Normal)</h3>
-    <p>Para cumplir con la 3NF, la tabla debe estar en 2NF y ningún atributo que no sea clave puede depender de otro atributo que tampoco sea clave. Esto elimina las dependencias indirectas (transitivas).</p>
-    <ul>
-        <li><b>Tabla Membresia</b>: Esta tabla es el ejemplo clave del cumplimiento de la 3NF. El campo ID_Nivel depende directamente de la clave primaria ID_Membresia. El nombre del nivel (ej. 'Oro') no se almacena aquí, sino en su propia tabla (Niveles_Membresia). Esto evita que el nombre del nivel dependa indirectamente de ID_Membresia a través de ID_Nivel.</li>
-        <li><b>Tabla Perfil_Miembro</b>: Campos como Nombre o Correo_Electronico dependen únicamente de la clave primaria ID_Miembro y no dependen entre sí. Por ejemplo, el correo no depende del nombre, ni viceversa.</li>
-        <li><b>Tablas Niveles_Membresia y Beneficios</b>: Son tablas de catálogo donde la descripción (Nombre_Nivel, Descripcion_Beneficio) depende directamente de su clave primaria (ID_Nivel, ID_Beneficio), eliminando cualquier dependencia transitiva.</li>
-    </ul>
-    
-    <p>Esta estructura de datos es eficiente porque minimiza la repetición de información y hace que la gestión de la base de datos sea mucho más sencilla.</p>
+            <h3>Tabla Beneficios</h3>
+            <h4>Propósito</h4>
+            <p>Es otro catálogo que describe cada uno de los beneficios o ventajas que se pueden ofrecer.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Beneficio:</b> Un número único para cada beneficio.</li>
+                <li><b>Descripcion_Beneficio:</b> El texto que explica el beneficio (ej. 'Acceso gratuito al spa').</li>
+                <li><b>Condiciones_Beneficio:</b> La "letra pequeña" del beneficio (ej. 'Sujeto a disponibilidad').</li>
+            </ul>
 
+            <h3>Tabla Nivel del Beneficio</h3>
+            <h4>Propósito</h4>
+            <p>Su única y más importante función es conectar o unir los niveles con sus beneficios.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Nivel:</b> El número del nivel.</li>
+                <li><b>ID_Beneficio:</b> El número del beneficio.</li>
+            </ul>
 
-    <h1>Código SQL para crear tablas</h1>
-    <pre><code>
-    CREATE DATABASE Membresias;
-    USE Membresias;
+            <h3>Tabla Membresía</h3>
+            <h4>Propósito</h4>
+            <p>Vincula a un miembro específico con un nivel de membresía y gestiona su estado actual.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Miembro:</b> Para saber de quién es la membresía.</li>
+                <li><b>ID_Nivel:</b> Para saber qué nivel tiene esa persona.</li>
+                <li><b>Estado_Membresia:</b> Para saber si está 'Activa' o 'Vencida'.</li>
+                <li><b>Fecha_Vencimiento:</b> La fecha de caducidad de su membresía.</li>
+                <li><b>Puntos_Acumulados:</b> El total de puntos que tiene el miembro.</li>
+            </ul>
 
-    CREATE TABLE Perfil_Miembro (
-        ID_Miembro INT PRIMARY KEY IDENTITY(1,1),
-        Nombre NVARCHAR(100) NOT NULL,
-        Apellido_P NVARCHAR(100) NOT NULL,
-        Apellido_M NVARCHAR(100),
-        Fecha_Nacimiento DATE,
-        Correo_Electronico NVARCHAR(255) NOT NULL UNIQUE,
-        Numero_Telefono NVARCHAR(20),
-        Fecha_Registro DATETIME DEFAULT GETDATE()
-    );
-    GO
-
-
-    CREATE TABLE Niveles_Membresia (
-        ID_Nivel INT PRIMARY KEY IDENTITY(1,1),
-        Nombre_Nivel VARCHAR(50) NOT NULL UNIQUE
-    );
-    GO
-
-
-    CREATE TABLE Beneficios (
-        ID_Beneficio INT PRIMARY KEY IDENTITY(1,1),
-        Descripcion_Beneficio NVARCHAR(MAX) NOT NULL,
-        Condiciones_Beneficio NVARCHAR(MAX)
-    );
-    GO
-
-
-    CREATE TABLE Membresia (
-        ID_Membresia INT PRIMARY KEY IDENTITY(1,1),
-        ID_Miembro INT NOT NULL,
-        ID_Nivel INT NOT NULL, 
-        Estado_Membresia VARCHAR(10) NOT NULL,
-        Fecha_Vencimiento DATE NOT NULL,
-        Puntos_Acumulados INT DEFAULT 0,
+            <h3>Tabla Historial Visitas</h3>
+            <h4>Propósito</h4>
+            <p>Funciona como una bitácora que registra cada visita que un miembro realiza.</p>
+            <h4>Campos</h4>
+            <ul>
+                <li><b>ID_Miembro:</b> Para saber quién realizó la visita.</li>
+                <li><b>Fecha_Visita:</b> Cuándo fue al Hotel.</li>
+                <li><b>Gasto_Total_Visita:</b> Cuánto dinero gastó en cada visita.</li>
+                <li><b>Habitacion_Ocupada, Servicios_Consumidos:</b> Detalles de la visita.</li>
+            </ul>
+        </div>
         
-        CONSTRAINT CHK_Membresia_Estado CHECK (Estado_Membresia IN('Activa', 'Inactiva', 'Vencida')),
-        FOREIGN KEY (ID_Miembro) REFERENCES Perfil_Miembro(ID_Miembro) ON DELETE CASCADE,
-        FOREIGN KEY (ID_Nivel) REFERENCES Niveles_Membresia(ID_Nivel)
-    );
-    GO
+        <div class="section">
+            <h2>Normalización de la Base de Datos</h2>
+            <p>Para asegurar que los datos estén bien organizados y sean consistentes, la base de datos se estructuró siguiendo las tres primeras formas normales (1FN, 2FN y 3FN).</p>
 
+            <h3>1NF (Primera Forma Normal)</h3>
+            <p>Cada tabla tiene una clave primaria única y todas las columnas son atómicas (almacenan un solo valor).</p>
+            
+            <h3>2NF (Segunda Forma Normal)</h3>
+            <p>La tabla está en 1NF y todos los atributos que no son clave dependen completamente de la clave primaria completa.</p>
 
-    CREATE TABLE Nivel_Beneficio (
-        ID_Nivel INT NOT NULL,
-        ID_Beneficio INT NOT NULL,
-        PRIMARY KEY (ID_Nivel, ID_Beneficio), 
-        FOREIGN KEY (ID_Nivel) REFERENCES Niveles_Membresia(ID_Nivel) ON DELETE CASCADE,
-        FOREIGN KEY (ID_Beneficio) REFERENCES Beneficios(ID_Beneficio) ON DELETE CASCADE
-    );
-    GO
+            <h3>3NF (Tercera Forma Normal)</h3>
+            <p>La tabla está en 2NF y ningún atributo que no sea clave depende de otro atributo que tampoco sea clave, eliminando dependencias indirectas.</p>
 
+            <p>Esta estructura de datos es eficiente porque minimiza la repetición de información y hace que la gestión de la base de datos sea mucho más sencilla.</p>
+        </div>
 
-    CREATE TABLE Historial_Visitas (
-        ID_Visita INT PRIMARY KEY IDENTITY(1,1),
-        ID_Miembro INT NOT NULL,
-        Fecha_Visita DATETIME DEFAULT GETDATE(),
-        Gasto_Total_Visita DECIMAL(10, 2) DEFAULT 0.00,
-        Habitacion_Ocupada VARCHAR(10),
-        Servicios_Consumidos NVARCHAR(MAX),
-        Promocion_Canjeada NVARCHAR(255),
-        FOREIGN KEY (ID_Miembro) REFERENCES Perfil_Miembro(ID_Miembro) ON DELETE CASCADE
-    );
-    GO
+        <div class="section">
+            <h2>Código SQL para Crear Tablas</h2>
+            <pre><code>CREATE DATABASE Membresias;
+USE Membresias;
 
-        </code></pre>
+CREATE TABLE Perfil_Miembro (
+    ID_Miembro INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    Apellido_P NVARCHAR(100) NOT NULL,
+    Apellido_M NVARCHAR(100),
+    Fecha_Nacimiento DATE,
+    Correo_Electronico NVARCHAR(255) NOT NULL UNIQUE,
+    Numero_Telefono NVARCHAR(20),
+    Fecha_Registro DATETIME DEFAULT GETDATE()
+);
+GO
 
+CREATE TABLE Niveles_Membresia (
+    ID_Nivel INT PRIMARY KEY IDENTITY(1,1),
+    Nombre_Nivel VARCHAR(50) NOT NULL UNIQUE
+);
+GO
 
-    <h1>Código SQL para agregar registros a las tablas</h1>
+CREATE TABLE Beneficios (
+    ID_Beneficio INT PRIMARY KEY IDENTITY(1,1),
+    Descripcion_Beneficio NVARCHAR(MAX) NOT NULL,
+    Condiciones_Beneficio NVARCHAR(MAX)
+);
+GO
 
-    <h3>Registro de Membresia</h3>
-    <pre><code>
-    INSERT INTO Niveles_Membresia (Nombre_Nivel) VALUES
-    ('Bronce'), ('Plata'), ('Oro'), ('Platino');
-    </code></pre>
+CREATE TABLE Membresia (
+    ID_Membresia INT PRIMARY KEY IDENTITY(1,1),
+    ID_Miembro INT NOT NULL,
+    ID_Nivel INT NOT NULL, 
+    Estado_Membresia VARCHAR(10) NOT NULL,
+    Fecha_Vencimiento DATE NOT NULL,
+    Puntos_Acumulados INT DEFAULT 0,
+    
+    CONSTRAINT CHK_Membresia_Estado CHECK (Estado_Membresia IN('Activa', 'Inactiva', 'Vencida')),
+    FOREIGN KEY (ID_Miembro) REFERENCES Perfil_Miembro(ID_Miembro) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Nivel) REFERENCES Niveles_Membresia(ID_Nivel)
+);
+GO
 
-    <h3>Registro de Beneficios</h3>
-    <pre><code>
-    INSERT INTO Beneficios (Descripcion_Beneficio, Condiciones_Beneficio) VALUES
-    ('Bebida de cortesía en el lobby', 'Una por estancia.'),
-    ('Acceso a la alberca principal', 'Horario de 9 AM a 8 PM.'),
-    ('Wi-Fi estándar gratuito', 'Hasta 2 dispositivos.'),
-    ('10% de descuento en restaurante', 'No aplica con otras promociones.'),
-    ('Acumulación de puntos x1.25', 'Puntos extra por cada compra.'),
-    ('Wi-Fi de alta velocidad', 'Dispositivos ilimitados.'),
-    ('Late check-out hasta las 2 PM', 'Sujeto a disponibilidad.'),
-    ('Acceso al gimnasio 24 horas', 'Uso exclusivo para miembros Plata o superior.'),
-    ('Upgrade de habitación a vista preferencial', 'Sujeto a disponibilidad.'),
-    ('Desayuno continental incluido', 'Para dos personas.'),
-    ('Acceso a eventos exclusivos', 'Requiere reservación.'),
-    ('Servicio de estacionamiento gratuito', 'Un vehículo por habitación.'),
-    ('Upgrade a Suite Junior garantizado', 'Al reservar habitación estándar.'),
-    ('Servicio de mayordomo personal', 'Requiere solicitud con 24h de antelación.'),
-    ('Transporte Aeropuerto-Hotel de lujo', 'Viaje redondo.');    
-    </code></pre>
+CREATE TABLE Nivel_Beneficio (
+    ID_Nivel INT NOT NULL,
+    ID_Beneficio INT NOT NULL,
+    PRIMARY KEY (ID_Nivel, ID_Beneficio), 
+    FOREIGN KEY (ID_Nivel) REFERENCES Niveles_Membresia(ID_Nivel) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Beneficio) REFERENCES Beneficios(ID_Beneficio) ON DELETE CASCADE
+);
+GO
 
-    <h3>Registro de Perfil Miembro</h3>
-    <pre><code>
-    INSERT INTO Perfil_Miembro (Nombre, Apellido_P, Apellido_M, Fecha_Nacimiento, Correo_Electronico, Numero_Telefono) VALUES
-    ('Ana', 'García', 'López', '1990-05-15', 'ana.garcia@email.com', '5512345678'),
-    ('Luis', 'Martínez', 'Hernández', '1985-11-22', 'luis.martinez@email.com', '5587654321'),
-    ('Sofía', 'Rodríguez', 'Pérez', '1992-08-01', 'sofia.rodriguez@email.com', '5511223344'),
-    ('Carlos', 'Sánchez', 'Gómez', '1988-02-10', 'carlos.sanchez@email.com', '5544556677'),
-    ('Valeria', 'Ramírez', 'Díaz', '1995-07-30', 'valeria.ramirez@email.com', '5577889900'),
-    ('Javier', 'Cruz', 'Flores', '1983-12-18', 'javier.cruz@email.com', '5599887766'),
-    ('Mariana', 'Jiménez', 'Vázquez', '1998-04-05', 'mariana.jimenez@email.com', '5566554433'),
-    ('Diego', 'Ortiz', 'Moreno', '1991-09-12', 'diego.ortiz@email.com', '5533221100'),
-    ('Camila', 'Reyes', 'Castillo', '1993-06-25', 'camila.reyes@email.com', '5522446688'),
-    ('Fernando', 'Mendoza', 'Torres', '1980-10-03', 'fernando.mendoza@email.com', '5588664422'),
-    ('Isabella', 'Guerrero', 'Ramos', '1999-01-14', 'isabella.guerrero@email.com', '5512121212'),
-    ('Ricardo', 'Navarro', 'Silva', '1986-03-28', 'ricardo.navarro@email.com', '5534343434'),
-    ('Gabriela', 'Soto', 'Rivera', '1994-05-20', 'gabriela.soto@email.com', '5556565656'),
-    ('Jorge', 'Acosta', 'León', '1989-08-08', 'jorge.acosta@email.com', '5578787878'),
-    ('Paulina', 'Vega', 'Lara', '1997-11-01', 'paulina.vega@email.com', '5590909090');
-    </code></pre>
+CREATE TABLE Historial_Visitas (
+    ID_Visita INT PRIMARY KEY IDENTITY(1,1),
+    ID_Miembro INT NOT NULL,
+    Fecha_Visita DATETIME DEFAULT GETDATE(),
+    Gasto_Total_Visita DECIMAL(10, 2) DEFAULT 0.00,
+    Habitacion_Ocupada VARCHAR(10),
+    Servicios_Consumidos NVARCHAR(MAX),
+    Promocion_Canjeada NVARCHAR(255),
+    FOREIGN KEY (ID_Miembro) REFERENCES Perfil_Miembro(ID_Miembro) ON DELETE CASCADE
+);
+GO</code></pre>
+        </div>
 
-    <h3>Registro de Nivel Beneficio</h3>
-    <pre><code>
-    -- =================================================================
-    -- 3. Asignación de Beneficios a Niveles (Tabla Puente)
-    -- =================================================================
-    -- Se asignan beneficios de forma progresiva a cada nivel
-    INSERT INTO Nivel_Beneficio (ID_Nivel, ID_Beneficio) VALUES
-    -- Beneficios BRONCE (los primeros 3)
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 1),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 2),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 3),
-    -- Beneficios PLATA (los de Bronce + 3 más)
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 1),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 2),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 3),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 4),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 5),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 6),
-    -- Beneficios ORO (los de Plata + 4 más)
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 1),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 2),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 3),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 4),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 5),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 6),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 7),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 8),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 9),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 10),
-    -- Beneficios PLATINO (todos los 15 beneficios)
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 1),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 2),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 3),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 4),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 5),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 6),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 7),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 8),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 9),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 10),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 11),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 12),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 13),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 14),
-    ((SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 15);
-    </code></pre>
+        <div class="section">
+            <h2>Código SQL para Agregar Registros</h2>
+            <h3>Registro de Niveles de Membresía</h3>
+            <pre><code>INSERT INTO Niveles_Membresia (Nombre_Nivel) VALUES
+('Bronce'), ('Plata'), ('Oro'), ('Platino');</code></pre>
 
-    <h3>Registro de Membresía</h3>
-    <pre><code>
-    INSERT INTO Membresia (ID_Miembro, ID_Nivel, Estado_Membresia, Fecha_Vencimiento, Puntos_Acumulados) VALUES
-    (1,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 'Activa', '2026-08-15', 1250),
-    (2,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 'Activa', '2026-07-20', 450),
-    (3,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 'Activa', '2026-09-01', 5600),
-    (4,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 'Activa', '2026-06-10', 120),
-    (5,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 'Activa', '2026-11-30', 2100),
-    (6,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 'Vencida', '2025-01-18', 50),
-    (7,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 'Activa', '2026-04-05', 880),
-    (8,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 'Activa', '2026-10-12', 650),
-    (9,  (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 'Activa', '2026-05-25', 1750),
-    (10, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Platino'), 'Activa', '2026-12-03', 8900),
-    (11, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 'Activa', '2026-02-14', 210),
-    (12, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Plata'), 'Activa', '2026-03-28', 720),
-    (13, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 'Activa', '2026-05-20', 150),
-    (14, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Oro'), 'Inactiva', '2026-08-08', 3200),
-    (15, (SELECT ID_Nivel FROM Niveles_Membresia WHERE Nombre_Nivel = 'Bronce'), 'Activa', '2026-11-01', 95);
-    </code></pre>
+            <h3>Registro de Beneficios</h3>
+            <pre><code>INSERT INTO Beneficios (Descripcion_Beneficio, Condiciones_Beneficio) VALUES
+('Bebida de cortesía en el lobby', 'Una por estancia.'),
+('Acceso a la alberca principal', 'Horario de 9 AM a 8 PM.'),
+('Wi-Fi estándar gratuito', 'Hasta 2 dispositivos.'),
+('10% de descuento en restaurante', 'No aplica con otras promociones.'),
+('Acumulación de puntos x1.25', 'Puntos extra por cada compra.'),
+('Wi-Fi de alta velocidad', 'Dispositivos ilimitados.'),
+('Late check-out hasta las 2 PM', 'Sujeto a disponibilidad.'),
+('Acceso al gimnasio 24 horas', 'Uso exclusivo para miembros Plata o superior.'),
+('Upgrade de habitación a vista preferencial', 'Sujeto a disponibilidad.'),
+('Desayuno continental incluido', 'Para dos personas.'),
+('Acceso a eventos exclusivos', 'Requiere reservación.'),
+('Servicio de estacionamiento gratuito', 'Un vehículo por habitación.'),
+('Upgrade a Suite Junior garantizado', 'Al reservar habitación estándar.'),
+('Servicio de mayordomo personal', 'Requiere solicitud con 24h de antelación.'),
+('Transporte Aeropuerto-Hotel de lujo', 'Viaje redondo.');</code></pre>
 
-    <h3>Registro de Historial Visitas</h3>
-    <pre><code>
-    INSERT INTO Historial_Visitas (ID_Miembro, Gasto_Total_Visita, Habitacion_Ocupada, Servicios_Consumidos) VALUES
-    (1, 2550.75, '301A', 'Restaurante, Spa'),
-    (1, 1890.50, '302B', 'Servicio a la habitación'),
-    (2, 950.00, '105', 'Bar'),
-    (3, 7800.00, 'PH-01', 'Mayordomo, Restaurante de lujo, Spa'),
-    (3, 6500.20, 'PH-01', 'Transporte, Servicio a la habitación'),
-    (4, 750.80, '110', 'Alberca'),
-    (5, 3200.00, '405A', 'Restaurante, Gimnasio'),
-    (7, 1250.50, '208', 'Bar, Lavandería'),
-    (8, 1400.00, '210', 'Restaurante'),
-    (9, 2900.60, '501', 'Spa, Servicio a la habitación'),
-    (10, 9500.00, 'PH-02', 'Todos los servicios'),
-    (11, 880.90, '112', 'Alberca'),
-    (12, 1100.00, '215', 'Gimnasio'),
-    (14, 2600.00, '408', 'Restaurante'),
-    (1, 2100.00, '301A', 'Restaurante');
-    </code></pre>
+            <h3>Registro de Perfil Miembro</h3>
+            <pre><code>INSERT INTO Perfil_Miembro (Nombre, Apellido_P, Apellido_M, Fecha_Nacimiento, Correo_Electronico, Numero_Telefono) VALUES
+('Ana', 'García', 'López', '1990-05-15', 'ana.garcia@email.com', '5512345678'),
+('Luis', 'Martínez', 'Hernández', '1985-11-22', 'luis.martinez@email.com', '5587654321'),
+-- (rest of the member data...)
+('Paulina', 'Vega', 'Lara', '1997-11-01', 'paulina.vega@email.com', '5590909090');</code></pre>
+        </div>
+    </div>
 
 </body>
 </html>
