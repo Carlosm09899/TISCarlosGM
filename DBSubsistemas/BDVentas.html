@@ -125,54 +125,104 @@
 
     <h1>Código SQL para crear tablas</h1>
     <pre><code>
-CREATE DATABASE SERVICIOS
+CREATE DATABASE Ventas 
 
--- --- Tabla de Categorías ---
-CREATE TABLE Categorias (
-    ID_Categoria INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Categoria VARCHAR(100) NOT NULL UNIQUE,
-    Descripcion_Categoria TEXT
-);
 
--- --- Tabla de Estados ---
-CREATE TABLE Estados (
-    ID_Estado INT IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE Estados_Pago (
+    ID_Estado_Pago INT IDENTITY(1,1) PRIMARY KEY,
     Nombre_Estado VARCHAR(50) NOT NULL UNIQUE
 );
 
--- --- Tabla de Tipos de Control de Stock ---
-CREATE TABLE Tipos_Control_Stock (
-    ID_Tipo_Control INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Control VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE Metodos_Pago (
+    ID_Metodo_Pago INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre_Metodo VARCHAR(100) NOT NULL UNIQUE
 );
 
--- --- Tabla Principal de Servicios ---
-CREATE TABLE Servicios ( 
-    ID_Servicio INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Servicio VARCHAR(200) NOT NULL,
-    Descripcion_Detallada TEXT,
-    
-    Precio_Venta DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Costo_Adquisicion DECIMAL(10, 2) DEFAULT 0.00,
-    Impuestos_Aplicables DECIMAL(4, 2) DEFAULT 0.16,
-    
-    Stock_Actual INT,
-    Stock_Minimo INT,
-    
-    Imagen_Referencia VARCHAR(255),
-    Horario_Disponibilidad VARCHAR(255),
-    
-    -- Claves Foráneas que conectan con las tablas catálogo
-    ID_Categoria INT,
-    ID_Estado INT,
-    ID_Tipo_Control INT,
-    
-    -- Definición de las restricciones de las claves foráneas
-    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria),
-    FOREIGN KEY (ID_Estado) REFERENCES Estados(ID_Estado),
-    FOREIGN KEY (ID_Tipo_Control) REFERENCES Tipos_Control_Stock(ID_Tipo_Control)
+CREATE TABLE Estados_Factura (
+    ID_Estado_Factura INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre_Estado VARCHAR(50) NOT NULL UNIQUE
+);
+GO
+
+-- --- Tablas Principales del Módulo ---
+
+-- 1. Encabezado de la Venta
+CREATE TABLE Ventas (
+    ID_Venta INT IDENTITY(1,1) PRIMARY KEY,
+    Fecha_Hora_Venta DATETIME2 NOT NULL DEFAULT GETDATE(),
+    Subtotal DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    Descuento_Total DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    Impuestos_Total DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    Total_Venta DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+
+    -- Claves Foráneas (se asume que las tablas Empleados, Habitaciones y Clientes ya existen)
+    ID_Empleado INT NOT NULL,
+    ID_Habitacion_Asociada INT NULL,
+    ID_Cliente_Miembro INT NULL,
+    ID_Estado_Pago INT NOT NULL,
+
+    -- Restricciones
+    -- FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado),
+    -- FOREIGN KEY (ID_Habitacion_Asociada) REFERENCES Habitaciones(ID_Habitacion),
+    -- FOREIGN KEY (ID_Cliente_Miembro) REFERENCES Clientes(ID_Cliente),
+    FOREIGN KEY (ID_Estado_Pago) REFERENCES Estados_Pago(ID_Estado_Pago)
 );
 
+-- 2. Cuerpo de la Venta (detalle de productos/servicios)
+CREATE TABLE Detalle_Ventas (
+    ID_Detalle_Venta INT IDENTITY(1,1) PRIMARY KEY,
+    ID_Venta INT NOT NULL,
+    
+    Descripcion_Concepto VARCHAR(255) NOT NULL,
+    Cantidad DECIMAL(10, 2) NOT NULL,
+    Precio_Unitario DECIMAL(10, 2) NOT NULL,
+    Monto_Descuento_Aplicado DECIMAL(10, 2) DEFAULT 0.00,
+
+    -- Claves Foráneas (se asume que Servicios y Promociones ya existen)
+    ID_Producto_Servicio INT NOT NULL,
+    ID_Promocion_Aplicada INT NULL,
+
+    -- Restricciones
+    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
+    -- FOREIGN KEY (ID_Producto_Servicio) REFERENCES Servicios(ID_Servicio),
+    -- FOREIGN KEY (ID_Promocion_Aplicada) REFERENCES Promociones(ID_Promocion)
+);
+
+-- 3. Pie de la Venta (información de pagos)
+-- Se crea una tabla separada para permitir múltiples pagos por una misma venta (ej. mitad efectivo, mitad tarjeta)
+CREATE TABLE Pagos (
+    ID_Pago INT IDENTITY(1,1) PRIMARY KEY,
+    ID_Venta INT NOT NULL,
+    Fecha_Hora_Pago DATETIME2 NOT NULL DEFAULT GETDATE(),
+    Monto_Recibido DECIMAL(10, 2) NOT NULL,
+    Cambio_Entregado DECIMAL(10, 2) DEFAULT 0.00,
+    Referencia_Pago VARCHAR(255) NULL, -- Para IDs de transacción de tarjeta, etc.
+
+    -- Clave Foránea
+    ID_Metodo_Pago INT NOT NULL,
+
+    -- Restricciones
+    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
+    FOREIGN KEY (ID_Metodo_Pago) REFERENCES Metodos_Pago(ID_Metodo_Pago)
+);
+
+-- 4. Datos de Facturación (separados porque no todas las ventas requieren factura)
+CREATE TABLE Facturas (
+    ID_Factura INT IDENTITY(1,1) PRIMARY KEY,
+    ID_Venta INT NOT NULL UNIQUE, -- Una venta solo puede tener una factura
+    Fecha_Emision DATETIME2 NOT NULL DEFAULT GETDATE(),
+    RFC VARCHAR(13) NOT NULL,
+    Razon_Social VARCHAR(255) NOT NULL,
+    Correo_Facturacion VARCHAR(100) NOT NULL,
+
+    -- Clave Foránea
+    ID_Estado_Factura INT NOT NULL,
+
+    -- Restricciones
+    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
+    FOREIGN KEY (ID_Estado_Factura) REFERENCES Estados_Factura(ID_Estado_Factura)
+);
+GO
 
     </code></pre>
 
