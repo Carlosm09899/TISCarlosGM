@@ -4,36 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Nuevo Servicio</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./../styles.css">
 </head>
 <body>
 
+    <header>
+        <h1>Registrar Nuevo Servicio</h1>
+    </header>
+
     <div class="container">
-        <h2>📝 Registrar Nuevo Servicio</h2>
+        <div class="section">
+            <form action="/guardar-servicio" method="POST" class="form-grid">
 
-        <form action="#" method="POST">
-
-            <div class="form-group">
                 <label for="nombre_servicio">Nombre del Servicio:</label>
                 <input type="text" id="nombre_servicio" name="nombre_servicio" required>
-            </div>
 
-            <div class="form-group">
                 <label for="descripcion_detallada">Descripción Detallada:</label>
                 <textarea id="descripcion_detallada" name="descripcion_detallada" rows="4"></textarea>
-            </div>
-            
-            <div class="price-group">
-                <div class="form-group">
-                    <label for="precio_venta">Precio de Venta:</label>
-                    <input type="number" id="precio_venta" name="precio_venta" min="0" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label for="costo_adquisicion">Costo de Adquisición:</label>
-                    <input type="number" id="costo_adquisicion" name="costo_adquisicion" min="0" step="0.01">
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="impuestos_aplicables">Impuestos Aplicables (ej. 0.16):</label>
-                <input type="number
+                <label for="precio_venta">Precio de Venta:</label>
+                <input type="number" id="precio_venta" name="precio_venta" min="0" step="0.01" required>
+
+                <label for="costo_adquisicion">Costo de Adquisición:</label>
+                <input type="number" id="costo_adquisicion" name="costo_adquisicion" min="0" step="0.01">
+
+                <label for="impuestos_aplicables">Impuestos (ej. 0.16):</label>
+                <input type="number" id="impuestos_aplicables" name="impuestos_aplicables" min="0" step="0.01" value="0.16">
+
+                <label for="stock_actual">Stock Actual:</label>
+                <input type="number" id="stock_actual" name="stock_actual" min="0">
+                
+                <label for="stock_minimo">Stock Mínimo:</label>
+                <input type="number" id="stock_minimo" name="stock_minimo" min="0">
+
+                <label for="horario_disponibilidad">Horario:</label>
+                <input type="text" id="horario_disponibilidad" name="horario_disponibilidad" placeholder="Ej: L-V 9:00-20:00">
+
+                <label for="id_categoria">Categoría:</label>
+                <select id="id_categoria" name="id_categoria" required>
+                    <option value="">Seleccione una categoría...</option>
+                    <option value="1">Masajes Corporales</option>
+                    <option value="2">Tratamientos Faciales</option>
+                    <option value="3">Venta de Productos</option>
+                </select>
+
+                <label for="id_estado">Estado:</label>
+                <select id="id_estado" name="id_estado" required>
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                    <option value="3">Agotado</option>
+                </select>
+                
+                <label for="id_tipo_control">Control de Stock:</label>
+                <select id="id_tipo_control" name="id_tipo_control" required>
+                    <option value="">Seleccione un tipo...</option>
+                    <option value="1">Por Unidad</option>
+                    <option value="2">Por Sesión</option>
+                    <option value="3">No Aplica</option>
+                </select>
+
+                <div class="button-container">
+                    <button type="submit" class="btn-crear">Registrar Servicio</button>
+                    <button type="button" class="btn-volver" onclick="history.back()">Volver</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

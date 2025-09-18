@@ -1,0 +1,359 @@
+/* Estilos generales del cuerpo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Contenedor principal para centrar el contenido */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+/* Estilo del encabezado principal */
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: #0779e4 3px solid;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Estilos para las secciones */
+.section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #0779e4;
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 10px;
+}
+
+/* Estilo para la imagen */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la lista de navegación */
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre elementos */
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea en pantallas pequeñas */
+}
+
+ul li a {
+    display: block;
+    background: #0779e4;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+ul li a:hover {
+    background: #0056b3;
+    transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
+}
+/* --- NUEVOS ESTILOS PARA FORMULARIOS --- */
+
+/* Estilo para la rejilla del formulario */
+.form-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* Columna para etiquetas y columna para campos */
+    gap: 15px;
+    align-items: center;
+}
+
+/* Estilo para las etiquetas */
+.form-grid label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/* Estilo general para los campos de entrada */
+.form-grid input[type="text"],
+.form-grid input[type="email"],
+.form-grid input[type="date"],
+.form-grid input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+/* Efecto al seleccionar un campo */
+.form-grid input:focus {
+    border-color: #0779e4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(7, 121, 228, 0.5);
+}
+
+/* Contenedor para los botones, para que ocupe todo el ancho */
+.form-grid .button-container {
+    grid-column: 1 / -1; /* Ocupa todas las columnas de la rejilla */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo base para los botones del formulario */
+.btn-crear, .btn-volver {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Botón primario (Crear) */
+.btn-crear {
+    background-color: #0779e4;
+    color: white;
+}
+
+.btn-crear:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Botón secundario (Volver) */
+.btn-volver {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-volver:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* --- ESTILOS ADICIONALES PARA FORMULARIOS MÁS COMPLEJOS --- */
+
+/* Estilo general para campos de entrada, ahora incluye number */
+.form-grid input[type="text"],
+.form-grid input[type="email"],
+.form-grid input[type="date"],
+.form-grid input[type="tel"],
+.form-grid input[type="number"],
+.form-grid select,
+.form-grid textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistencia de fuente */
+}
+
+/* Efecto al seleccionar cualquier campo del formulario */
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+    border-color: #0779e4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(7, 121, 228, 0.5);
+}
+
+/* Contenedor para los checkboxes, alineado a la izquierda */
+.form-grid .checkbox-container {
+    grid-column: 2 / -1; /* Empieza en la segunda columna */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estilo para la etiqueta del checkbox */
+.form-grid .checkbox-container label {
+    font-weight: normal;
+    text-align: left;
+}
+
+/* Estilo para el input del checkbox */
+.form-grid .checkbox-container input[type="checkbox"] {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* --- ESTILOS MEJORADOS PARA BOTONES --- */
+/* Base button style */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Primary action button (blue) */
+.btn-primary {
+    background-color: #0779e4;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Secondary action button (gray) */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Destructive action button (red) */
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+
+/* --- NUEVOS ESTILOS PARA PUNTO DE VENTA (POS) --- */
+
+/* Estilo para los grupos de campos */
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #fdfdfd;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #0779e4;
+    padding: 0 10px;
+}
+
+/* Rejilla para el encabezado de la venta */
+.pos-header-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.pos-header-grid .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.pos-header-grid label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Estilo para la tabla de items */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.items-table th, .items-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.items-table thead {
+    background-color: #f2f2f2;
+}
+
+.items-table th {
+    font-weight: bold;
+}
+
+/* Inputs dentro de la tabla */
+.items-table input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Contenedor del resumen de la venta */
+.resumen-venta {
+    float: right;
+    width: 300px;
+    text-align: right;
+    margin: 15px 0;
+}
+
+.resumen-venta p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.resumen-venta .total-general {
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #333;
+    border-top: 2px solid #333;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+/* Contenedor para los pagos */
+#pagos-container {
+    clear: both;
+    padding-top: 15px;
+}
+
+.pago-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
