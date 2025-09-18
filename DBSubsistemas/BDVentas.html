@@ -229,86 +229,105 @@ GO
 
     <h1>Código SQL para agregar registros a las tablas</h1>
 
-    <h3>Registro de Categorias</h3>
+    <h3>Registro de Estados_Pago </h3>
     <pre><code>
-    INSERT INTO Categorias (Nombre_Categoria, Descripcion_Categoria) VALUES
-    ('Masajes Corporales', 'Servicios de masajes para relajación y terapia.'),
-    ('Tratamientos Faciales', 'Limpieza e hidratación para el cuidado de la piel del rostro.'),
-    ('Venta de Productos', 'Productos de belleza y cuidado personal disponibles para compra.'),
-    ('Peluquería y Estilismo', 'Cortes de cabello, peinados y tratamientos capilares.'),
-    ('Manicura y Pedicura', 'Cuidado y embellecimiento de uñas, manos y pies.'),
-    ('Rituales de Spa', 'Experiencias completas que combinan varios tratamientos.'),
-    ('Paquetes y Membresías', 'Conjunto de servicios o accesos por un precio especial.'),
-    ('Gimnasio y Fitness', 'Acceso a instalaciones y clases de acondicionamiento físico.'),
-    ('Restaurante y Gastronomía', 'Servicios de alimentos y bebidas en nuestras instalaciones.'),
-    ('Bar y Coctelería', 'Bebidas y aperitivos en un ambiente relajado.'),
-    ('Eventos y Banquetes', 'Renta de espacios y servicios para eventos especiales.'),
-    ('Transporte Ejecutivo', 'Servicio de transporte privado para huéspedes.'),
-    ('Experiencias Románticas', 'Paquetes diseñados para parejas.'),
-    ('Tours y Actividades', 'Excursiones y actividades recreativas organizadas por el hotel.'),
-    ('Servicios Empresariales', 'Renta de salas de juntas y equipo de oficina.');
+    INSERT INTO Estados_Pago (Nombre_Estado) VALUES
+    ('Pagado'), ('Pendiente de Pago'), ('Cancelado'), ('Pago Parcial'), ('Reembolsado'),
+    ('En Verificación'), ('Error en Pago'), ('A Crédito'), ('Disputa Abierta'), ('Expirado'),
+    ('Transferencia Recibida'), ('Cheque Devuelto'), ('Pago Confirmado'), ('Fondos Insuficientes'), ('Donación');
     GO
     </code></pre>
 
-    <h3>Registro de Estados</h3>
+    <h3>Registro de Metodos_Pago</h3>
     <pre><code>
-    ('Activo'),               
-    ('Inactivo'),             
-    ('Agotado'),              
-    ('Próximamente'),         
-    ('Descontinuado'),        
-    ('En Mantenimiento'),     
-    ('Bajo Pedido'),          
-    ('En Promoción'),         
-    ('Reservado'),            
-    ('Oculto'),               
-    ('Borrador'),             
-    ('Requiere Aprobación'),  
-    ('Exclusivo Miembros'),   
-    ('Temporalmente Suspendido'), 
-    ('Disponible Online');  
-    GO 
-    </code></pre>
-
-    <h3>Registro de Tipos_Control_Stock</h3>
-    <pre><code>
-    INSERT INTO Tipos_Control_Stock (Nombre_Control) VALUES
-    ('Por Unidad'),           
-    ('Por Sesión'),           
-    ('No Aplica'),            
-    ('Por Litro/Mililitro'),  
-    ('Por Gramo/Kilogramo'),  
-    ('Por Hora'),             
-    ('Por Día'),              
-    ('Por Persona'),          
-    ('Por Paquete'),          
-    ('Uso Interno'),          
-    ('Digital/Descargable'),  
-    ('Por Reservación'),      
-    ('Por Metro Cuadrado'),   
-    ('Por Kilómetro'),        
-    ('Por Grupo');            
+    INSERT INTO Metodos_Pago (Nombre_Metodo) VALUES
+    ('Efectivo'), ('Tarjeta de Crédito'), ('Tarjeta de Débito'), ('Transferencia Bancaria (SPEI)'), ('Cargo a la Habitación'),
+    ('PayPal'), ('Mercado Pago'), ('Puntos de Lealtad'), ('Vale de Despensa'), ('Pago Móvil (CoDi)'),
+    ('Crédito de la Tienda'), ('Cheque Certificado'), ('Pago Mixto'), ('Criptomoneda'), ('Cupón de Regalo');
     GO
     </code></pre>
 
-        <h3>Registro de Servicios</h3>
+    <h3>Registro de Estados_Factura</h3>
     <pre><code>
-    INSERT INTO Servicios (Nombre_Servicio, Descripcion_Detallada, Precio_Venta, Costo_Adquisicion, Stock_Actual, Stock_Minimo, Horario_Disponibilidad, ID_Categoria, ID_Estado, ID_Tipo_Control) VALUES
-    ('Masaje Tejido Profundo', '80 minutos de masaje intenso para liberar tensión muscular crónica.', 1200.00, 80.00, 100, 0, 'L-D 9:00-21:00', 1, 1, 2), -- Cat: Masajes, Est: Activo, Ctrl: Por Sesión
-    ('Facial de Hidratación con Ácido Hialurónico', 'Tratamiento facial para pieles secas y deshidratadas.', 1100.00, 150.00, 100, 0, 'L-S 10:00-19:00', 2, 1, 2), -- Cat: Faciales, Est: Activo, Ctrl: Por Sesión
-    ('Kit de Viaje Esencial', 'Incluye shampoo, acondicionador y crema corporal de 100ml.', 750.00, 400.00, 50, 10, '24/7 en recepción', 3, 1, 1), -- Cat: Productos, Est: Activo, Ctrl: Por Unidad
-    ('Corte y Estilizado para Dama', 'Incluye lavado, corte con estilista senior y secado.', 900.00, 50.00, 100, 0, 'M-S 11:00-20:00', 4, 1, 2), -- Cat: Peluquería, Est: Activo, Ctrl: Por Sesión
-    ('Pedicura Spa de Lujo', 'Incluye exfoliación, masaje y esmalte de larga duración.', 650.00, 70.00, 100, 0, 'M-S 11:00-20:00', 5, 8, 2), -- Cat: Manicura, Est: En Promoción, Ctrl: Por Sesión
-    ('Ritual Holístico de Renovación', 'Experiencia de 3 horas con exfoliación, envoltura corporal y masaje.', 3500.00, 400.00, 50, 0, 'Previa reservación', 6, 1, 12), -- Cat: Rituales, Est: Activo, Ctrl: Por Reservación
-    ('Membresía Gimnasio Mensual', 'Acceso ilimitado a todas las áreas del gimnasio y clases grupales.', 1500.00, 100.00, 500, 0, 'L-D 6:00-23:00', 7, 13, 1), -- Cat: Paquetes, Est: Exclusivo Miembros, Ctrl: Por Unidad
-    ('Acceso de Día a Gimnasio', 'Day-pass para uso de instalaciones de fitness.', 350.00, 10.00, 1000, 0, 'L-D 6:00-23:00', 8, 1, 7), -- Cat: Gimnasio, Est: Activo, Ctrl: Por Día
-    ('Cena Degustación 5 Tiempos', 'Menú especial del chef con maridaje opcional.', 1800.00, 700.00, 40, 0, 'J-S 19:00-23:00', 9, 1, 8), -- Cat: Restaurante, Est: Activo, Ctrl: Por Persona
-    ('Clase de Mixología', 'Aprende a preparar 3 cócteles de autor con nuestro bartender experto.', 800.00, 150.00, 20, 0, 'Viernes 18:00', 10, 1, 8), -- Cat: Bar, Est: Activo, Ctrl: Por Persona
-    ('Renta Salón "Primavera" por día', 'Salón para eventos con capacidad para 100 personas.', 25000.00, 2000.00, 1, 0, 'Previa reservación', 11, 7, 12), -- Cat: Eventos, Est: Bajo Pedido, Ctrl: Por Reservación
-    ('Traslado Aeropuerto-Hotel en SUV', 'Servicio de transporte privado para hasta 4 personas.', 1600.00, 600.00, 10, 0, '24/7 con reservación', 12, 1, 12), -- Cat: Transporte, Est: Activo, Ctrl: Por Reservación
-    ('Paquete "Noche Romántica"', 'Incluye botella de vino espumoso, fresas con chocolate y decoración.', 1300.00, 500.00, 50, 5, 'Previa reservación', 13, 1, 9), -- Cat: Experiencias, Est: Activo, Ctrl: Por Paquete
-    ('Tour a las Pirámides de Teotihuacán', 'Excursión de día completo con guía certificado y transporte.', 2200.00, 1500.00, 30, 0, 'Miércoles y Sábados', 14, 4, 8), -- Cat: Tours, Est: Próximamente, Ctrl: Por Persona
-    ('Renta de Sala de Juntas por Hora', 'Espacio para 8 personas con proyector y servicio de café.', 950.00, 100.00, 10, 0, 'L-V 8:00-19:00', 15, 1, 6); -- Cat: Empresarial, Est: Activo, Ctrl: Por Hora
+    INSERT INTO Estados_Factura (Nombre_Estado) VALUES
+    ('No Solicitada'), ('Pendiente de Datos Fiscales'), ('Generada'), ('Timbrada (Válida)'), ('Enviada al Cliente'),
+    ('Cancelada'), ('En Proceso de Cancelación'), ('Error de Timbrado'), ('Sustituida'), ('Cancelación Aceptada'),
+    ('Cancelación Rechazada'), ('En Revisión'), ('Pagada'), ('Archivada'), ('Solicitud Recibida');
+    GO
+    </code></pre>
+
+    <h3>Registro de Ventas</h3>
+    <pre><code>
+    INSERT INTO Ventas (Fecha_Hora_Venta, Subtotal, Descuento_Total, Impuestos_Total, Total_Venta, ID_Empleado, ID_Habitacion_Asociada, ID_Cliente_Miembro, ID_Estado_Pago) VALUES
+    ('2025-09-15 10:30:00', 950.00, 50.00, 144.00, 1044.00, 5, 101, 15, 1), -- Venta 1
+    ('2025-09-15 11:15:00', 2500.00, 250.00, 360.00, 2610.00, 2, 205, 8, 1), -- Venta 2
+    ('2025-09-16 09:05:00', 80.00, 0.00, 12.80, 92.80, 5, NULL, 22, 1), -- Venta 3
+    ('2025-09-16 14:00:00', 3500.00, 0.00, 560.00, 4060.00, 3, 310, NULL, 2), -- Venta 4
+    ('2025-09-16 18:45:00', 1800.00, 180.00, 259.20, 1879.20, 2, NULL, 15, 4), -- Venta 5
+    ('2025-09-17 08:30:00', 450.00, 0.00, 72.00, 522.00, 8, 101, 15, 1), -- Venta 6
+    ('2025-09-17 12:20:00', 600.00, 0.00, 96.00, 696.00, 5, 401, 3, 1), -- Venta 7
+    ('2025-09-17 15:10:00', 1250.00, 125.00, 180.00, 1305.00, 2, NULL, 41, 1), -- Venta 8
+    ('2025-09-17 20:00:00', 500.00, 0.00, 80.00, 580.00, 3, 205, 8, 3), -- Venta 9 (Cancelada)
+    ('2025-09-18 09:00:00', 2200.00, 0.00, 352.00, 2552.00, 8, NULL, 50, 1), -- Venta 10
+    ('2025-09-18 10:00:00', 780.00, 78.00, 112.32, 814.32, 5, 310, NULL, 1), -- Venta 11
+    ('2025-09-18 11:00:00', 150.00, 0.00, 24.00, 174.00, 2, NULL, 22, 1), -- Venta 12
+    ('2025-09-18 12:00:00', 4800.00, 480.00, 691.20, 4011.20, 3, 102, 18, 1), -- Venta 13
+    ('2025-09-18 13:00:00', 300.00, 0.00, 48.00, 348.00, 8, 208, 3, 2), -- Venta 14
+    ('2025-09-18 13:15:00', 990.00, 99.00, 142.56, 1033.56, 5, NULL, 41, 1); -- Venta 15
+    GO
+    </code></pre>
+
+    <h3>Registro de Detalle_Ventas</h3>
+    <pre><code>
+    INSERT INTO Detalle_Ventas (ID_Venta, Descripcion_Concepto, Cantidad, Precio_Unitario, Monto_Descuento_Aplicado, ID_Producto_Servicio, ID_Promocion_Aplicada) VALUES
+    (1, 'Desayuno Buffet', 2, 475.00, 50.00, 101, 5),
+    (2, 'Masaje de Tejido Profundo', 2, 1250.00, 250.00, 205, 2),
+    (3, 'Botella de Agua', 2, 40.00, 0.00, 501, NULL),
+    (4, 'Renta de Salón "Sol"', 1, 3500.00, 0.00, 702, NULL),
+    (5, 'Cena Romántica Menú 3 Tiempos', 2, 900.00, 180.00, 110, 8),
+    (6, 'Servicio de Lavandería', 5, 90.00, 0.00, 801, NULL),
+    (7, 'Acceso a Alberca (Day Pass)', 2, 300.00, 0.00, 605, NULL),
+    (8, 'Corte de Cabello Dama', 1, 750.00, 0.00, 302, NULL),
+    (8, 'Manicura Clásica', 1, 500.00, 125.00, 310, 4),
+    (9, 'Botella de Vino Tinto Reserva', 1, 500.00, 0.00, 120, NULL), -- Venta Cancelada
+    (10, 'Tour a la Ciudad', 2, 1100.00, 0.00, 901, NULL),
+    (11, 'Kit de Productos de Belleza', 1, 780.00, 78.00, 405, 1),
+    (12, 'Café Americano', 2, 75.00, 0.00, 105, NULL),
+    (13, 'Paquete de Bodas Básico', 1, 4800.00, 480.00, 710, 10),
+    (14, 'Servicio a la Habitación (Club Sándwich)', 1, 300.00, 0.00, 115, NULL),
+    (15, 'Par de Lentes de Sol', 1, 990.00, 99.00, 410, 1);
+    GO
+    </code></pre>
+
+    <h3>Registro de Detalle_Ventas</h3>
+    <pre><code>
+    INSERT INTO Pagos (ID_Venta, Monto_Recibido, Cambio_Entregado, Referencia_Pago, ID_Metodo_Pago) VALUES
+    (1, 1044.00, 0.00, NULL, 5), -- Cargo a la Habitación
+    (2, 2610.00, 0.00, 'AUTH-584739', 2), -- Tarjeta de Crédito
+    (3, 100.00, 7.20, NULL, 1), -- Efectivo-- Venta 4 está pendiente de pago
+    (5, 1000.00, 0.00, NULL, 1), -- Pago Parcial en Efectivo
+    (5, 879.20, 0.00, 'AUTH-584755', 3), -- Pago Parcial con Débito
+    (6, 522.00, 0.00, NULL, 5), -- Cargo a la Habitación
+    (7, 696.00, 0.00, NULL, 5), -- Cargo a la Habitación
+    (8, 1305.00, 0.00, 'PAYPAL-ID-8943759', 6), -- PayPal -- Venta 9 fue cancelada, no tiene pago
+    (10, 2552.00, 0.00, 'SPEI-TRACK-789456123', 4), -- Transferencia
+    (11, 814.32, 0.00, NULL, 5), -- Cargo a la Habitación
+    (12, 174.00, 0.00, 'MP-ID-456123789', 7), -- Mercado Pago
+    (13, 5000.00, 988.80, NULL, 1), -- Efectivo-- Venta 14 está pendiente de pago
+    (15, 1033.56, 0.00, 'AUTH-584888', 2); -- Tarjeta de Crédito
+    GO
+    </code></pre>
+
+    <h3>Registro de Facturas</h3>
+    <pre><code>
+    INSERT INTO Facturas (ID_Venta, RFC, Razon_Social, Correo_Facturacion, ID_Estado_Factura) VALUES
+    (2, 'PEMX0101011A1', 'PUBLICO EN GENERAL SA DE CV', 'cliente1@email.com', 4), -- Timbrada (Válida)
+    (4, 'ABC121212AB1', 'ARQUITECTURA Y DISEÑO BC SA DE CV', 'contacto@arqbc.com', 2), -- Pendiente de Datos
+    (8, 'GHI987654G45', 'GRUPO HOTELERO INTERNACIONAL SC', 'facturas@ghotel.com', 5), -- Enviada al Cliente
+    (10, 'XYZ220101CD2', 'XPERIENCIAS Y ZERVICIOS SA DE CV', 'pagos@xyz.com', 4), -- Timbrada (Válida)
+    (11, 'RET880808RT8', 'RETAIL INTERNACIONAL SA', 'fiscal@retail.com', 6), -- Cancelada
+    (13, 'WED340506WE6', 'WEDDINGS & EVENTS PLANNERS SC', 'bodas@wedplan.com', 3), -- Generada
+    (15, 'SUN560708SN7', 'SUNGLASSES WORLD SA DE CV', 'admin@sunworld.com', 4); -- Timbrada (Válida)
     GO
     </code></pre>
 </body>
