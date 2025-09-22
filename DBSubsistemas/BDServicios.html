@@ -80,8 +80,6 @@
                 Precio_Venta DECIMAL(10,2) NOT NULL,
                 Costo_Adquisicion DECIMAL(10,2) NULL,
                 Impuestos_Aplicables DECIMAL(5,2) NULL, -- porcentaje o tasa
-                Stock_Actual INT NULL,
-                Stock_Minimo_Alerta INT NULL,
                 Imagen_Referencia NVARCHAR(255) NULL,
 
                 -- Llaves foráneas
@@ -111,34 +109,75 @@
             <h3>Registro de Categorias</h3>
             <pre><code>
                 INSERT INTO Categorias (Nombre_Categoria, Descripcion_Categoria) VALUES
-                ('Masajes Terapéuticos', 'Servicios de masajes enfocados en aliviar dolencias y estrés.'),
-                ('Tratamientos Faciales', 'Cuidado y rejuvenecimiento de la piel del rostro.'),
-                ('Estilismo y Peluquería', 'Cortes de cabello, peinados y tratamientos capilares.'),
-                ('Rituales de Spa', 'Paquetes completos de relajación que combinan varios servicios.'),
-                ('Gastronomía', 'Servicios de alimentos y bebidas del restaurante del hotel.');
+                ('Hospedaje', 'Tipos de habitaciones y suites para alojamiento de huéspedes.'),
+                ('Alimentos y Bebidas', 'Servicios relacionados con restaurantes, bares y servicio a la habitación.'),
+                ('Eventos y Banquetes', 'Renta de salones y paquetes para eventos sociales o corporativos.'),
+                ('Bienestar y Recreación', 'Servicios de spa, gimnasio, alberca y actividades recreativas.'),
+                ('Servicios Adicionales', 'Servicios complementarios como lavandería, transportación y tours.');
                 GO
             </code></pre>
 
             <h3>Registro de Estados</h3>
             <pre><code>
                 INSERT INTO Estados (Nombre_Estado) VALUES
-                ('Activo'),
-                ('Inactivo'),
-                ('Próximamente'),
+                ('Disponible'),
+                ('No Disponible'),
                 ('En Mantenimiento'),
-                ('Exclusivo para Miembros');GO
+                ('Bajo Petición');
+                GO
             </code></pre>
 
             <h3>Registro de Servicios</h3>
             <pre><code>
-                INSERT INTO Servicios 
-                (Nombre_Servicio, Descripcion_Detallada, Precio_Venta, Costo_Adquisicion, Impuestos_Aplicables, Stock_Actual, Stock_Minimo_Alerta, Imagen_Referencia, ID_Categoria, ID_Estado) VALUES
-                ('Masaje Relajante Sueco', '60 minutos de masaje suave para una relajación profunda.', 950.00, 80.00, 0.16, 50, 5, 'url/masaje_sueco.jpg', 1, 1), -- Categoria: Masajes, Estado: Activo
-                ('Limpieza Facial Profunda', 'Tratamiento de 75 minutos que incluye extracción, exfoliación e hidratación.', 1100.00, 120.00, 0.16, 50, 5, 'url/facial_profundo.jpg', 2, 1), -- Categoria: Faciales, Estado: Activo
-                ('Corte y Estilizado para Dama', 'Incluye lavado, corte con estilista y secado profesional.', 800.00, 40.00, 0.16, 100, 0, 'url/corte_dama.jpg', 3, 1), -- Categoria: Peluquería, Estado: Activo
-                ('Ritual "Renovación Total"', 'Experiencia de 3 horas que incluye exfoliación, envoltura de algas y masaje holístico.', 3200.00, 450.00, 0.16, 20, 2, 'url/ritual_renovacion.jpg', 4, 5), -- Categoria: Rituales, Estado: Exclusivo Miembros
-                ('Cena Degustación del Chef', 'Menú de 5 tiempos con maridaje de vinos.', 1800.00, 600.00, 0.16, 30, 0, 'url/cena_chef.jpg', 5, 3), -- Categoria: Gastronomía, Estado: Próximamente
-                ('Masaje Descontracturante', 'Masaje intenso de 60 minutos para liberar nudos musculares.', 1050.00, 90.00, 0.16, 0, 5, 'url/masaje_descon.jpg', 1, 2); -- Categoria: Masajes, Estado: Inactivo GO
+                INSERT INTO Servicios (Nombre_Servicio, Descripcion_Detallada, Precio_Venta, Costo_Adquisicion, Impuestos_Aplicables, Imagen_Referencia, ID_Categoria, ID_Estado) VALUES
+                ('Habitación Estándar King', 'Confortable habitación con una cama King Size, TV de 42", Wi-Fi y baño privado. Vista al jardín.', 1850.00, 450.00, 18.00, 'img/habitacion_king.jpg', 1, 1),
+                ('Suite de Lujo con Jacuzzi', 'Amplia suite con cama King Size, sala de estar, jacuzzi privado y balcón con vista al mar.', 4200.50, 980.00, 18.00, 'img/suite_jacuzzi.jpg', 1, 1),
+                ('Desayuno Buffet "El Amanecer"', 'Buffet completo con estación de omelets, fruta fresca, panadería artesanal y platillos regionales.', 350.00, 120.00, 16.00, 'img/desayuno_buffet.jpg', 2, 1),
+                ('Cena a la Carta en Restaurante "La Cava"', 'Experiencia culinaria gourmet con menú de autor y maridaje de vinos.', 950.00, 350.00, 16.00, 'img/cena_lacava.jpg', 2, 1),
+                ('Renta de Salón "Gran Emperador" (8 horas)', 'Salón con capacidad para 200 personas, incluye mobiliario, proyector y sistema de audio.', 15000.00, 4500.00, 16.00, 'img/salon_eventos.jpg', 3, 4),
+                ('Masaje Relajante "Serenidad"', 'Sesión de masaje de 60 minutos con aceites esenciales para liberar tensión y estrés.', 1100.00, 400.00, 16.00, 'img/masaje_spa.jpg', 4, 1),
+                ('Acceso a Gimnasio 24h', 'Acceso ilimitado a nuestras instalaciones de gimnasio equipadas con maquinaria de última generación.', 0.00, 50.00, 0.00, 'img/gimnasio.jpg', 4, 1),
+                ('Servicio de Lavandería (por prenda)', 'Lavado y planchado de prendas con entrega en 24 horas.', 85.00, 30.00, 16.00, 'img/lavanderia.jpg', 5, 1),
+                ('Alberca Principal', 'Acceso a la alberca principal y área de camastros. Exclusivo para huéspedes.', 0.00, 100.00, 0.00, 'img/alberca.jpg', 4, 3); -- Ejemplo de un servicio en mantenimiento
+                GO
+            </code></pre>
+
+            </code></pre>
+            <h3>Registro Disponibilidad Servicios</h3>
+            <pre><code>
+                INSERT INTO Disponibilidad_Servicios (ID_Servicio, Dia_Semana, Hora_Inicio, Hora_Fin) VALUES
+                -- Disponibilidad del Desayuno Buffet (Servicio ID: 3)
+                (3, 'Lunes', '07:00:00', '11:30:00'),
+                (3, 'Martes', '07:00:00', '11:30:00'),
+                (3, 'Miércoles', '07:00:00', '11:30:00'),
+                (3, 'Jueves', '07:00:00', '11:30:00'),
+                (3, 'Viernes', '07:00:00', '11:30:00'),
+                (3, 'Sábado', '07:00:00', '12:00:00'),
+                (3, 'Domingo', '07:00:00', '12:00:00'),
+                -- Disponibilidad del Restaurante "La Cava" (Servicio ID: 4)
+                (4, 'Lunes', '18:00:00', '23:00:00'),
+                (4, 'Martes', '18:00:00', '23:00:00'),
+                (4, 'Miércoles', '18:00:00', '23:00:00'),
+                (4, 'Jueves', '18:00:00', '23:00:00'),
+                (4, 'Viernes', '18:00:00', '23:59:00'),
+                (4, 'Sábado', '18:00:00', '23:59:00'),
+                -- Disponibilidad del Spa para Masajes (Servicio ID: 6)
+                (6, 'Lunes', '10:00:00', '19:00:00'),
+                (6, 'Martes', '10:00:00', '19:00:00'),
+                (6, 'Miércoles', '10:00:00', '19:00:00'),
+                (6, 'Jueves', '10:00:00', '19:00:00'),
+                (6, 'Viernes', '10:00:00', '20:00:00'),
+                (6, 'Sábado', '10:00:00', '20:00:00'),
+                (6, 'Domingo', '11:00:00', '17:00:00'),
+                -- Disponibilidad del Gimnasio (Servicio ID: 7) - Es 24h, se puede representar así
+                (7, 'Lunes', '00:00:00', '23:59:59'),
+                (7, 'Martes', '00:00:00', '23:59:59'),
+                (7, 'Miércoles', '00:00:00', '23:59:59'),
+                (7, 'Jueves', '00:00:00', '23:59:59'),
+                (7, 'Viernes', '00:00:00', '23:59:59'),
+                (7, 'Sábado', '00:00:00', '23:59:59'),
+                (7, 'Domingo', '00:00:00', '23:59:59');
+                GO
             </code></pre>
         </div>
     </div>
