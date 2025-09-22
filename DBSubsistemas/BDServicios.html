@@ -41,11 +41,7 @@
             
             <h3>Tabla Estados</h3>
             <h4>Propósito</h4>
-            <p>Esta tabla de catálogo sirve para definir una lista oficial de los posibles estatus que un servicio puede tener.</p>
-
-            <h3>Tabla Tipos_Control_Stock</h3>
-            <h4>Propósito</h4>
-            <p>El propósito de esta tabla de catálogo es definir los diferentes métodos para gestionar el inventario de los servicios o productos.</p>
+            <p>Esta tabla de catálogo sirve para definir una lista oficial de los posibles estatus que un servicio puede tener (Activo, inactivo, en mantenimiento).</p>
         </div>
         
         <div class="section">
@@ -60,78 +56,90 @@
         </div>
 
         <div class="section">
-            <h2>Código SQL para Crear Tablas</h2>
-            <pre><code>CREATE DATABASE SERVICIOS;
+        <h2>Código SQL para Crear Tablas</h2>
+        <pre><code>CREATE DATABASE SERVICIOS;
 
--- --- Tabla de Categorías ---
-CREATE TABLE Categorias (
-    ID_Categoria INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Categoria VARCHAR(100) NOT NULL UNIQUE,
-    Descripcion_Categoria TEXT
-);
+            -- Categorías de servicios
+            CREATE TABLE Categorias (
+                ID_Categoria INT IDENTITY(1,1) PRIMARY KEY,
+                Nombre_Categoria NVARCHAR(100) NOT NULL,
+                Descripcion_Categoria NVARCHAR(255)
+            );
 
--- --- Tabla de Estados ---
-CREATE TABLE Estados (
-    ID_Estado INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Estado VARCHAR(50) NOT NULL UNIQUE
-);
+            -- Estados de servicios (Ej: Activo, Inactivo, Mantenimiento)
+            CREATE TABLE Estados (
+                ID_Estado INT IDENTITY(1,1) PRIMARY KEY,
+                Nombre_Estado NVARCHAR(50) NOT NULL
+            );
 
--- --- Tabla de Tipos de Control de Stock ---
-CREATE TABLE Tipos_Control_Stock (
-    ID_Tipo_Control INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Control VARCHAR(100) NOT NULL UNIQUE
-);
+            -- Servicios principales
+            CREATE TABLE Servicios (
+                ID_Servicio INT IDENTITY(1,1) PRIMARY KEY,
+                Nombre_Servicio NVARCHAR(150) NOT NULL,
+                Descripcion_Detallada NVARCHAR(MAX),
+                Precio_Venta DECIMAL(10,2) NOT NULL,
+                Costo_Adquisicion DECIMAL(10,2) NULL,
+                Impuestos_Aplicables DECIMAL(5,2) NULL, -- porcentaje o tasa
+                Stock_Actual INT NULL,
+                Stock_Minimo_Alerta INT NULL,
+                Imagen_Referencia NVARCHAR(255) NULL,
 
--- --- Tabla Principal de Servicios ---
-CREATE TABLE Servicios ( 
-    ID_Servicio INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_Servicio VARCHAR(200) NOT NULL,
-    Descripcion_Detallada TEXT,
-    Precio_Venta DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    -- (resto de los campos...)
-    
-    -- Claves Foráneas que conectan con las tablas catálogo
-    ID_Categoria INT,
-    ID_Estado INT,
-    ID_Tipo_Control INT,
-    
-    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria),
-    FOREIGN KEY (ID_Estado) REFERENCES Estados(ID_Estado),
-    FOREIGN KEY (ID_Tipo_Control) REFERENCES Tipos_Control_Stock(ID_Tipo_Control)
-);</code></pre>
+                -- Llaves foráneas
+                ID_Categoria INT NOT NULL,
+                ID_Estado INT NOT NULL,
+
+                CONSTRAINT FK_Servicios_Categorias FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria),
+                CONSTRAINT FK_Servicios_Estados FOREIGN KEY (ID_Estado) REFERENCES Estados(ID_Estado)
+            );
+
+            -- Disponibilidad de horarios de los servicios
+            CREATE TABLE Disponibilidad_Servicios (
+                ID_Disponibilidad INT IDENTITY(1,1) PRIMARY KEY,
+                ID_Servicio INT NOT NULL,
+                Dia_Semana NVARCHAR(20) NOT NULL, -- Ej: Lunes, Martes
+                Hora_Inicio TIME NOT NULL,
+                Hora_Fin TIME NOT NULL,
+
+                CONSTRAINT FK_Disponibilidad_Servicios FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio)
+            );
+
+        </code></pre>
         </div>
 
         <div class="section">
             <h2>Código SQL para Agregar Registros</h2>
             <h3>Registro de Categorias</h3>
-            <pre><code>INSERT INTO Categorias (Nombre_Categoria, Descripcion_Categoria) VALUES
-('Masajes Corporales', 'Servicios de masajes para relajación y terapia.'),
-('Tratamientos Faciales', 'Limpieza e hidratación para el cuidado de la piel del rostro.'),
--- (resto de los registros...)
-('Servicios Empresariales', 'Renta de salas de juntas y equipo de oficina.');
-GO</code></pre>
+            <pre><code>
+                INSERT INTO Categorias (Nombre_Categoria, Descripcion_Categoria) VALUES
+                ('Masajes Terapéuticos', 'Servicios de masajes enfocados en aliviar dolencias y estrés.'),
+                ('Tratamientos Faciales', 'Cuidado y rejuvenecimiento de la piel del rostro.'),
+                ('Estilismo y Peluquería', 'Cortes de cabello, peinados y tratamientos capilares.'),
+                ('Rituales de Spa', 'Paquetes completos de relajación que combinan varios servicios.'),
+                ('Gastronomía', 'Servicios de alimentos y bebidas del restaurante del hotel.');
+                GO
+            </code></pre>
 
             <h3>Registro de Estados</h3>
-            <pre><code>INSERT INTO Estados (Nombre_Estado) VALUES
-('Activo'), ('Inactivo'), ('Agotado'), ('Próximamente'),
--- (resto de los registros...)
-('Disponible Online');
-GO</code></pre>
-
-            <h3>Registro de Tipos_Control_Stock</h3>
-            <pre><code>INSERT INTO Tipos_Control_Stock (Nombre_Control) VALUES
-('Por Unidad'), ('Por Sesión'), ('No Aplica'),
--- (resto de los registros...)
-('Por Grupo');
-GO</code></pre>
+            <pre><code>
+                INSERT INTO Estados (Nombre_Estado) VALUES
+                ('Activo'),
+                ('Inactivo'),
+                ('Próximamente'),
+                ('En Mantenimiento'),
+                ('Exclusivo para Miembros');GO
+            </code></pre>
 
             <h3>Registro de Servicios</h3>
-            <pre><code>INSERT INTO Servicios (Nombre_Servicio, Descripcion_Detallada, ...) VALUES
-('Masaje Tejido Profundo', '80 minutos de masaje...', 1200.00, ...),
-('Facial de Hidratación...', 'Tratamiento facial para pieles secas...', 1100.00, ...),
--- (resto de los registros...)
-('Renta de Sala de Juntas por Hora', 'Espacio para 8 personas...', 950.00, ...);
-GO</code></pre>
+            <pre><code>
+                INSERT INTO Servicios 
+                (Nombre_Servicio, Descripcion_Detallada, Precio_Venta, Costo_Adquisicion, Impuestos_Aplicables, Stock_Actual, Stock_Minimo_Alerta, Imagen_Referencia, ID_Categoria, ID_Estado) VALUES
+                ('Masaje Relajante Sueco', '60 minutos de masaje suave para una relajación profunda.', 950.00, 80.00, 0.16, 50, 5, 'url/masaje_sueco.jpg', 1, 1), -- Categoria: Masajes, Estado: Activo
+                ('Limpieza Facial Profunda', 'Tratamiento de 75 minutos que incluye extracción, exfoliación e hidratación.', 1100.00, 120.00, 0.16, 50, 5, 'url/facial_profundo.jpg', 2, 1), -- Categoria: Faciales, Estado: Activo
+                ('Corte y Estilizado para Dama', 'Incluye lavado, corte con estilista y secado profesional.', 800.00, 40.00, 0.16, 100, 0, 'url/corte_dama.jpg', 3, 1), -- Categoria: Peluquería, Estado: Activo
+                ('Ritual "Renovación Total"', 'Experiencia de 3 horas que incluye exfoliación, envoltura de algas y masaje holístico.', 3200.00, 450.00, 0.16, 20, 2, 'url/ritual_renovacion.jpg', 4, 5), -- Categoria: Rituales, Estado: Exclusivo Miembros
+                ('Cena Degustación del Chef', 'Menú de 5 tiempos con maridaje de vinos.', 1800.00, 600.00, 0.16, 30, 0, 'url/cena_chef.jpg', 5, 3), -- Categoria: Gastronomía, Estado: Próximamente
+                ('Masaje Descontracturante', 'Masaje intenso de 60 minutos para liberar nudos musculares.', 1050.00, 90.00, 0.16, 0, 5, 'url/masaje_descon.jpg', 1, 2); -- Categoria: Masajes, Estado: Inactivo GO
+            </code></pre>
         </div>
     </div>
 </body>
